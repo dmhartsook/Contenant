@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // NEED THE PEFF ASSET
-//        title_view=(TextView)findViewById(R.id.titleTextView);
-//        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
-//        title_view.setTypeface(face);
+        title_view=(TextView)findViewById(R.id.titleTextView);
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
