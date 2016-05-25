@@ -1,1 +1,3 @@
-include ':app'
+include ':app', ':FloatingActionLibrary'
+include ':libs:FloatingActionLibrary'
+project(':FloatingActionLibrary').projectDir = new File('libs/FloatingActionLibrary')
