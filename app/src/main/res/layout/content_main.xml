@@ -19,21 +19,21 @@
         android:orientation="vertical"
         android:gravity="center">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name" />
-
-    <!--<me.grantland.widget.AutofitTextView-->
+    <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:singleLine="true"-->
-        <!--android:id="@+id/titleTextView"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:text="@string/app_name"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:textSize="40sp"-->
-        <!--/>-->
+        <!--android:text="@string/app_name" />-->
+
+    <me.grantland.widget.AutofitTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:id="@+id/titleTextView"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        />
 
     <ImageView
         android:paddingLeft="50dp"
