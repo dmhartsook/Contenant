@@ -12,8 +12,15 @@
     tools:context="edu.ucsb.cs.cs185.contenant.contenant.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <me.grantland.widget.AutofitTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:singleLine="true"
+        android:id="@+id/titleTextView"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        />
+
 </RelativeLayout>
