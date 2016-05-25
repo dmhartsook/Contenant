@@ -174,8 +174,8 @@ public class FloatingActionsMenu extends ViewGroup {
         collapseAnimator.setInterpolator(interpolator);
         expandAnimator.setInterpolator(interpolator);
 
-        mExpandAnimation.play(expandAnimator);
-        mCollapseAnimation.play(collapseAnimator);
+//        mExpandAnimation.play(expandAnimator);
+//        mCollapseAnimation.play(collapseAnimator);
 
         return rotatingDrawable;
       }
