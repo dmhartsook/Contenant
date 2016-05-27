@@ -3,13 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Contenant.iml" filepath="$PROJECT_DIR$/Contenant.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/FloatingActionLibrary/Contenant-FloatingActionLibrary.iml" filepath="$PROJECT_DIR$/libs/FloatingActionLibrary/Contenant-FloatingActionLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/FloatingActionLibrary/Contenant-FloatingActionLibrary.iml" filepath="$PROJECT_DIR$/libs/FloatingActionLibrary/Contenant-FloatingActionLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/libs/FloatingActionLibrary/FloatingActionLibrary.iml" filepath="$PROJECT_DIR$/app/libs/FloatingActionLibrary/FloatingActionLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/libs.iml" filepath="$PROJECT_DIR$/libs/libs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/FloatingActionLibrary/libs-FloatingActionLibrary.iml" filepath="$PROJECT_DIR$/libs/FloatingActionLibrary/libs-FloatingActionLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/libs/FloatingActionLibrary/libs-FloatingActionLibrary.iml" filepath="$PROJECT_DIR$/libs/FloatingActionLibrary/libs-FloatingActionLibrary.iml" />
     </modules>
   </component>
 </project>
