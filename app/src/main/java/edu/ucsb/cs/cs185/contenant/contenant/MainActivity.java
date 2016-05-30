@@ -1,5 +1,6 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -21,17 +22,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         // NEED THE PEFF ASSET
         title_view=(TextView)findViewById(R.id.titleTextView);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fab_add);
+        fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Intent intent = new Intent(MainActivity.this, AddHomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        FloatingActionButton fabView = (FloatingActionButton) findViewById(R.id.fab_view);
+        fabView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "View Activity", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

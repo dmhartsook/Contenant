@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Contenant</string>
     <string name="action_settings">Settings</string>
+
+    <string name="view_house">View Houses</string>
+    <string name="new_house">New House</string>
+    <string name="view_room">View Rooms</string>
+    <string name="new_room">New Room</string>
+
+    <string name="add_home">Add A Home!</string>
+    <string name="add_pic">Add Picture</string>
+
+    <string name="address">Address: </string>
+    <string name="price">Price: </string>
+    <string name="notes">Notes: </string>
+
+    <string name="add_room">Add A Room!</string>
+
 </resources>
