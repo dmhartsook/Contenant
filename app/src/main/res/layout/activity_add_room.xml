@@ -74,7 +74,9 @@
                 android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edit_notes"
+                android:id="@+id/edit_room_notes"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
                 android:layout_below="@id/room_image"
                 android:layout_toRightOf="@id/room_notes"
                 android:theme="@style/MyEditText"/>
