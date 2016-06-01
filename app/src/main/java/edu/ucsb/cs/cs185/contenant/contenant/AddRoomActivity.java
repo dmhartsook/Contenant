@@ -40,6 +40,7 @@ public class AddRoomActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_new, menu);
         return true;
