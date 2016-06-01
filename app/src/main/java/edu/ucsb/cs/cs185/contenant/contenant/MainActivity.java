@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        // NEED THE PEFF ASSET
         title_view=(TextView)findViewById(R.id.titleTextView);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face);
@@ -63,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_help) {
+            DiagFragment fragment = new DiagFragment();
+            fragment.show(getFragmentManager(), "");
+
             return true;
         }
 
