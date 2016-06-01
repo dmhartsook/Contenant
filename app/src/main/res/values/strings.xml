@@ -19,5 +19,6 @@
     <string name="notes">Notes: </string>
 
     <string name="add_room">Add A Room!</string>
+    <string name="save">Save</string>
 
 </resources>
