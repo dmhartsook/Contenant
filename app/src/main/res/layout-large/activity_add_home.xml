@@ -18,8 +18,8 @@
                 android:id="@+id/home_image"
                 android:paddingTop="20dp"
                 android:paddingLeft="20dp"
-                android:layout_width="400dp"
-                android:layout_height="400dp"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
                 android:src="@drawable/home5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"/>
@@ -30,8 +30,7 @@
                 android:gravity="center"
                 android:layout_toRightOf="@+id/home_image"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginTop="50dp">
 
                 <me.grantland.widget.AutofitTextView
                     android:layout_width="wrap_content"
@@ -71,10 +70,13 @@
 
                 <EditText
                     android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
                     android:paddingTop="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edit_address"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
                     android:layout_below="@id/home_image"
                     android:layout_toRightOf="@id/home_address"
                     android:theme="@style/MyEditText"/>
@@ -94,12 +96,16 @@
 
                 <EditText
                     android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
                     android:paddingTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edit_price"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
                     android:layout_below="@id/home_address"
                     android:layout_toRightOf="@id/home_price"
+                    android:inputType="number"
                     android:theme="@style/MyEditText"/>
 
                 <me.grantland.widget.AutofitTextView
@@ -117,10 +123,13 @@
 
                 <EditText
                     android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
                     android:paddingTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/edit_notes"
+                    android:id="@+id/edit_home_notes"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
                     android:layout_below="@id/home_price"
                     android:layout_toRightOf="@id/home_notes"
                     android:theme="@style/MyEditText"/>
@@ -139,26 +148,19 @@
         android:layout_alignParentBottom="true">
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/house_menu2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fab_margin"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        fab:menu_icon="@drawable/ic_home_white_24dp">
+            android:id="@+id/house_menu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/fab_margin"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:menu_icon="@drawable/ic_home_white_24dp">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_home_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_title="@string/view_room"
-        fab:fab_icon="@drawable/abc_ic_search_api_mtrl_alpha"/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_home_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_title="@string/new_room"
-        fab:fab_icon="@drawable/fab_add"/>
+            android:id="@+id/fab_home_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_title="@string/new_room"
+            fab:fab_icon="@drawable/fab_add"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

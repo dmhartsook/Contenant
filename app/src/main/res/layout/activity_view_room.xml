@@ -16,22 +16,22 @@
 
             <ImageView
                 android:id="@+id/room_image"
-                android:paddingTop="20dp"
-                android:paddingLeft="20dp"
-                android:layout_width="400dp"
-                android:layout_height="400dp"
-                android:src="@drawable/home4"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_house"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_toRightOf="@+id/room_image"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginTop="25dp">
 
                 <me.grantland.widget.AutofitTextView
                     android:layout_width="wrap_content"
@@ -39,21 +39,9 @@
                     android:singleLine="true"
                     android:id="@+id/room_title"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/add_room"
-                    android:textSize="50sp"
-                    />
+                    android:text="Room 1"
+                    android:textSize="30sp" />
 
-                <Button
-                    android:layout_marginTop="100dp"
-                    android:layout_width="wrap_content"
-                    android:padding="10dp"
-                    android:textSize="30sp"
-                    android:singleLine="true"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/mybutton"
-                    android:textColor="@android:color/white"
-                    android:layout_below="@+id/room_title"
-                    android:text="@string/add_pic"/>
             </LinearLayout>
 
             <me.grantland.widget.AutofitTextView
@@ -66,23 +54,24 @@
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/notes"
-                android:textSize="30sp"
+                android:textSize="24sp"
                 />
 
-            <EditText
+            <TextView
                 android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
                 android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edit_room_notes"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
+                android:id="@+id/notes"
                 android:layout_below="@id/room_image"
                 android:layout_toRightOf="@id/room_notes"
-                android:theme="@style/MyEditText"/>
+                android:layout_alignBaseline="@id/home_notes"
+                android:text="great"
+                android:textSize="20sp"/>
 
             <TextView
-                android:id="@+id/placeholder2"
+                android:id="@+id/placeholder"
                 android:layout_width="550dp"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
