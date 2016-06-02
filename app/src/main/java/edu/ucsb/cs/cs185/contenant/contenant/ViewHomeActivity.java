@@ -74,6 +74,15 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         if (id == R.id.edit_home) {
             Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
+
+            TextView address = (TextView) findViewById(R.id.address);
+            TextView price = (TextView) findViewById(R.id.price);
+            TextView notes = (TextView) findViewById(R.id.notes);
+
+            intent.putExtra(Constants.HOME_ADDRESS, address.getText().toString());
+            intent.putExtra(Constants.HOME_PRICE, price.getText().toString());
+            intent.putExtra(Constants.HOME_NOTES, notes.getText().toString());
+
             startActivity(intent);
         }
 

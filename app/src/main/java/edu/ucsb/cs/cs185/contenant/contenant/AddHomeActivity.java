@@ -29,6 +29,8 @@ public class AddHomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
+        initializeFields(getIntent());
+
         title_view=(TextView)findViewById(R.id.home_title);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face);
@@ -53,6 +55,29 @@ public class AddHomeActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+    }
+
+    /*
+     * Sets all the EditView fields with the values passed in the intent.
+     * Leaves the default (empty) values if nothing was passed.
+     */
+    private void initializeFields(Intent intent) {
+        String address = intent.getStringExtra(Constants.HOME_ADDRESS);
+        String price = intent.getStringExtra(Constants.HOME_PRICE);
+        String notes = intent.getStringExtra(Constants.HOME_NOTES);
+
+        if (address != null) {
+            EditText addressView = (EditText) findViewById(R.id.edit_address);
+            addressView.setText(address);
+        }
+        if (price != null) {
+            EditText priceView = (EditText) findViewById(R.id.edit_price);
+            priceView.setText(price);
+        }
+        if (notes != null) {
+            EditText notesView = (EditText) findViewById(R.id.edit_home_notes);
+            notesView.setText(notes);
+        }
     }
 
     @Override
