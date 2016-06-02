@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
-import edu.ucsb.cs.cs185.contenant.contenant.R;
-
 /**
  * Activity for viewing a specific home.
  */
@@ -24,19 +22,21 @@ public class ViewHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_home);
 
+        initializeFields(getIntent());
+
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
 
-        TextView title_view = (TextView) findViewById(R.id.home_title);
-        title_view.setTypeface(face);
+        TextView textView = (TextView) findViewById(R.id.home_title);
+        textView.setTypeface(face);
 
-        title_view = (TextView) findViewById(R.id.home_address);
-        title_view.setTypeface(face);
+        textView = (TextView) findViewById(R.id.home_address);
+        textView.setTypeface(face);
 
-        title_view = (TextView) findViewById(R.id.home_price);
-        title_view.setTypeface(face);
+        textView = (TextView) findViewById(R.id.home_price);
+        textView.setTypeface(face);
 
-        title_view = (TextView) findViewById(R.id.home_notes);
-        title_view.setTypeface(face);
+        textView = (TextView) findViewById(R.id.home_notes);
+        textView.setTypeface(face);
 
         FloatingActionButton fabView = (FloatingActionButton) findViewById(R.id.fab_home_view);
         fabView.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +46,20 @@ public class ViewHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /* Sets all the TextView fields with the values passed in the intent. */
+    private void initializeFields(Intent intent) {
+        String address = intent.getStringExtra(Constants.HOME_ADDRESS);
+        String price = intent.getStringExtra(Constants.HOME_PRICE);
+        String notes = intent.getStringExtra(Constants.HOME_NOTES);
+
+        TextView addressView = (TextView) findViewById(R.id.address);
+        addressView.setText(address);
+        TextView priceView = (TextView) findViewById(R.id.price);
+        priceView.setText(price);
+        TextView notesView = (TextView) findViewById(R.id.notes);
+        notesView.setText(notes);
     }
 
     @Override

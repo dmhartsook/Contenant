@@ -6,11 +6,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -74,6 +76,14 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save_home) {
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
+            EditText address = (EditText) findViewById(R.id.edit_address);
+            EditText price = (EditText) findViewById(R.id.edit_price);
+            EditText notes = (EditText) findViewById(R.id.edit_home_notes);
+
+            intent.putExtra(Constants.HOME_ADDRESS, address.getText().toString());
+            intent.putExtra(Constants.HOME_PRICE, price.getText().toString());
+            intent.putExtra(Constants.HOME_NOTES, notes.getText().toString());
+
             this.finish();
             startActivity(intent);
         }
