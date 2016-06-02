@@ -73,6 +73,7 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
+            this.finish();
             startActivity(intent);
         }
 

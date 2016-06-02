@@ -16,39 +16,31 @@
 
             <ImageView
                 android:id="@+id/home_image"
-                android:paddingTop="20dp"
-                android:paddingLeft="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="175dp"
                 android:layout_height="175dp"
-                android:src="@drawable/home5"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_house"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_toRightOf="@+id/home_image"
                 android:orientation="vertical"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="5dp">
+                android:layout_marginTop="25dp">
 
-                <!--<me.grantland.widget.AutofitTextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:id="@+id/home_title"-->
-                    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-                    <!--android:text="@string/add_home"-->
-                    <!--android:textSize="30sp"-->
-                    <!--/>-->
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/home1"
-                    android:background="#aaa"
-                    android:id="@+id/imageView" />
+                <me.grantland.widget.AutofitTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:id="@+id/home_title"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Home 1"
+                    android:textSize="30sp" />
 
             </LinearLayout>
 
@@ -144,29 +136,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true">
 
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/house_menu2"
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_home_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/fab_margin"
-            fab:fab_labelStyle="@style/menu_labels_style"
-            fab:menu_icon="@drawable/ic_home_white_24dp">
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_home_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_title="@string/view_room"
-                fab:fab_icon="@drawable/abc_ic_search_api_mtrl_alpha"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_home_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_title="@string/new_room"
-                fab:fab_icon="@drawable/fab_add"/>
-
-        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+            fab:fab_title="@string/view_room"
+            fab:fab_icon="@drawable/abc_ic_search_api_mtrl_alpha"/>
 
     </LinearLayout>
 </RelativeLayout>
