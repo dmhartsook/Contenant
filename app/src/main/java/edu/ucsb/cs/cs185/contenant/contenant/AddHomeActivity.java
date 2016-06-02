@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +29,10 @@ public class AddHomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
-        initializeFields(getIntent());
+        House home = (House) getIntent().getSerializableExtra(Constants.HOME);
+        if (home != null) {
+            initializeFields(home);
+        }
 
         title_view=(TextView)findViewById(R.id.home_title);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -58,26 +61,20 @@ public class AddHomeActivity extends AppCompatActivity{
     }
 
     /*
-     * Sets all the EditView fields with the values passed in the intent.
-     * Leaves the default (empty) values if nothing was passed.
+     * Sets all the EditView fields with the values in the home.
      */
-    private void initializeFields(Intent intent) {
-        String address = intent.getStringExtra(Constants.HOME_ADDRESS);
-        String price = intent.getStringExtra(Constants.HOME_PRICE);
-        String notes = intent.getStringExtra(Constants.HOME_NOTES);
+    private void initializeFields(@NonNull House home) {
+        EditText addressView = (EditText) findViewById(R.id.edit_address);
+        String address = home.getAddress();
+        addressView.setText(address);
 
-        if (address != null) {
-            EditText addressView = (EditText) findViewById(R.id.edit_address);
-            addressView.setText(address);
-        }
-        if (price != null) {
-            EditText priceView = (EditText) findViewById(R.id.edit_price);
-            priceView.setText(price);
-        }
-        if (notes != null) {
-            EditText notesView = (EditText) findViewById(R.id.edit_home_notes);
-            notesView.setText(notes);
-        }
+        EditText priceView = (EditText) findViewById(R.id.edit_price);
+        String price = home.getPrice();
+        priceView.setText(price);
+
+        EditText notesView = (EditText) findViewById(R.id.edit_home_notes);
+        String notes = home.getNotes();
+        notesView.setText(notes);
     }
 
     @Override
@@ -105,9 +102,12 @@ public class AddHomeActivity extends AppCompatActivity{
             EditText price = (EditText) findViewById(R.id.edit_price);
             EditText notes = (EditText) findViewById(R.id.edit_home_notes);
 
-            intent.putExtra(Constants.HOME_ADDRESS, address.getText().toString());
-            intent.putExtra(Constants.HOME_PRICE, price.getText().toString());
-            intent.putExtra(Constants.HOME_NOTES, notes.getText().toString());
+            House thisHome = new House(
+                    address.getText().toString(),
+                    price.getText().toString(),
+                    notes.getText().toString());
+
+            intent.putExtra(Constants.HOME, thisHome);
 
             this.finish();
             startActivity(intent);

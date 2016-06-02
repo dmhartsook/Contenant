@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,7 +23,10 @@ public class ViewHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_home);
 
-        initializeFields(getIntent());
+        House home = (House) getIntent().getSerializableExtra(Constants.HOME);
+        if (home != null) {
+            initializeFields(home);
+        }
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
 
@@ -48,18 +52,14 @@ public class ViewHomeActivity extends AppCompatActivity {
         });
     }
 
-    /* Sets all the TextView fields with the values passed in the intent. */
-    private void initializeFields(Intent intent) {
-        String address = intent.getStringExtra(Constants.HOME_ADDRESS);
-        String price = intent.getStringExtra(Constants.HOME_PRICE);
-        String notes = intent.getStringExtra(Constants.HOME_NOTES);
-
+    /* Sets all the TextView fields with the values passed in the house. */
+    private void initializeFields(@NonNull House home) {
         TextView addressView = (TextView) findViewById(R.id.address);
-        addressView.setText(address);
+        addressView.setText(home.getAddress());
         TextView priceView = (TextView) findViewById(R.id.price);
-        priceView.setText(price);
+        priceView.setText(home.getPrice());
         TextView notesView = (TextView) findViewById(R.id.notes);
-        notesView.setText(notes);
+        notesView.setText(home.getNotes());
     }
 
     @Override
@@ -79,9 +79,12 @@ public class ViewHomeActivity extends AppCompatActivity {
             TextView price = (TextView) findViewById(R.id.price);
             TextView notes = (TextView) findViewById(R.id.notes);
 
-            intent.putExtra(Constants.HOME_ADDRESS, address.getText().toString());
-            intent.putExtra(Constants.HOME_PRICE, price.getText().toString());
-            intent.putExtra(Constants.HOME_NOTES, notes.getText().toString());
+            House thisHome = new House(
+                    address.getText().toString(),
+                    price.getText().toString(),
+                    notes.getText().toString());
+
+            intent.putExtra(Constants.HOME, thisHome);
 
             startActivity(intent);
         }
