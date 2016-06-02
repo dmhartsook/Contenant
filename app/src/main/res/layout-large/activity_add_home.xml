@@ -18,8 +18,8 @@
                 android:id="@+id/home_image"
                 android:paddingTop="20dp"
                 android:paddingLeft="20dp"
-                android:layout_width="400dp"
-                android:layout_height="400dp"
+                android:layout_width="350dp"
+                android:layout_height="350dp"
                 android:src="@drawable/home5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"/>
@@ -30,8 +30,7 @@
                 android:gravity="center"
                 android:layout_toRightOf="@+id/home_image"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginTop="50dp">
 
                 <me.grantland.widget.AutofitTextView
                     android:layout_width="wrap_content"
