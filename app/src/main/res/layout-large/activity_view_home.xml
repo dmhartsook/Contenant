@@ -67,7 +67,6 @@
                 android:layout_below="@+id/home_image"
                 android:layout_toRightOf="@id/home_address"
                 android:layout_alignBaseline="@id/home_address"
-                android:text="23 spruce"
                 android:textSize="24sp" />
 
             <me.grantland.widget.AutofitTextView
@@ -94,7 +93,6 @@
                 android:layout_toRightOf="@id/home_price"
                 android:layout_alignBaseline="@id/home_price"
                 android:inputType="number"
-                android:text="250000"
                 android:textSize="24sp"/>
 
             <me.grantland.widget.AutofitTextView
@@ -120,7 +118,6 @@
                 android:layout_below="@id/home_price"
                 android:layout_toRightOf="@id/home_notes"
                 android:layout_alignBaseline="@id/home_notes"
-                android:text="great"
                 android:textSize="24sp"/>
 
             <TextView

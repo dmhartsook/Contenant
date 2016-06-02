@@ -71,6 +71,7 @@
 
             <EditText
                 android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
                 android:paddingTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,6 +98,7 @@
 
             <EditText
                 android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
                 android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,6 +125,7 @@
 
             <EditText
                 android:layout_marginRight="20dp"
+                android:layout_marginLeft="10dp"
                 android:paddingTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
