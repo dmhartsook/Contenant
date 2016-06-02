@@ -145,26 +145,19 @@
         android:layout_alignParentBottom="true">
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/house_menu2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fab_margin"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        fab:menu_icon="@drawable/ic_home_white_24dp">
+            android:id="@+id/house_menu2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/fab_margin"
+            fab:fab_labelStyle="@style/menu_labels_style"
+            fab:menu_icon="@drawable/ic_home_white_24dp">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_home_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_title="@string/view_room"
-        fab:fab_icon="@drawable/abc_ic_search_api_mtrl_alpha"/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_home_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        fab:fab_title="@string/new_room"
-        fab:fab_icon="@drawable/fab_add"/>
+            android:id="@+id/fab_home_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_title="@string/new_room"
+            fab:fab_icon="@drawable/fab_add"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

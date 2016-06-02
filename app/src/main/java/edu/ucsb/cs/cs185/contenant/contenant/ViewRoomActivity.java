@@ -17,35 +17,18 @@ import edu.ucsb.cs.cs185.contenant.contenant.R;
 /**
  * Activity for viewing a specific home.
  */
-public class ViewHomeActivity extends AppCompatActivity {
+public class ViewRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_home);
+        setContentView(R.layout.activity_view_room);
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
 
-        TextView title_view = (TextView) findViewById(R.id.home_title);
+        TextView title_view = (TextView) findViewById(R.id.room_notes);
         title_view.setTypeface(face);
 
-        title_view = (TextView) findViewById(R.id.home_address);
-        title_view.setTypeface(face);
-
-        title_view = (TextView) findViewById(R.id.home_price);
-        title_view.setTypeface(face);
-
-        title_view = (TextView) findViewById(R.id.home_notes);
-        title_view.setTypeface(face);
-
-        FloatingActionButton fabView = (FloatingActionButton) findViewById(R.id.fab_home_view);
-        fabView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ViewHomeActivity.this, ViewRoomActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -59,7 +42,7 @@ public class ViewHomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.edit_home) {
-            Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
+            Intent intent = new Intent(ViewRoomActivity.this, AddRoomActivity.class);
             startActivity(intent);
         }
 

@@ -15,7 +15,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/home_image"
+                android:id="@+id/room_image"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_width="350dp"
@@ -29,7 +29,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_toRightOf="@+id/home_image"
+                android:layout_toRightOf="@+id/room_image"
                 android:orientation="vertical"
                 android:layout_marginTop="50dp">
 
@@ -37,71 +37,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:id="@+id/home_title"
+                    android:id="@+id/room_title"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Home 1"
+                    android:text="Room 1"
                     android:textSize="50sp" />
 
             </LinearLayout>
 
             <me.grantland.widget.AutofitTextView
                 android:paddingLeft="20dp"
-                android:paddingTop="50dp"
-                android:layout_below="@+id/home_image"
-                android:id="@+id/home_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/address"
-                android:textSize="30sp"
-                />
-
-            <TextView
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="50dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/address"
-                android:layout_below="@+id/home_image"
-                android:layout_toRightOf="@id/home_address"
-                android:layout_alignBaseline="@id/home_address"
-                android:text="23 spruce"
-                android:textSize="24sp" />
-
-            <me.grantland.widget.AutofitTextView
-                android:paddingLeft="20dp"
                 android:paddingTop="30dp"
-                android:layout_below="@+id/home_address"
-                android:id="@+id/home_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/price"
-                android:textSize="30sp"
-                />
-
-            <TextView
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="10dp"
-                android:paddingTop="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/price"
-                android:layout_below="@id/home_address"
-                android:layout_toRightOf="@id/home_price"
-                android:layout_alignBaseline="@id/home_price"
-                android:inputType="number"
-                android:text="250000"
-                android:textSize="24sp"/>
-
-            <me.grantland.widget.AutofitTextView
-                android:paddingLeft="20dp"
-                android:paddingTop="30dp"
-                android:layout_below="@+id/home_price"
-                android:id="@+id/home_notes"
+                android:layout_below="@+id/room_image"
+                android:id="@+id/room_notes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -117,9 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/notes"
-                android:layout_below="@id/home_price"
-                android:layout_toRightOf="@id/home_notes"
-                android:layout_alignBaseline="@id/home_notes"
+                android:layout_below="@id/room_image"
+                android:layout_toRightOf="@id/room_notes"
+                android:layout_alignBaseline="@id/room_notes"
                 android:text="great"
                 android:textSize="24sp"/>
 
