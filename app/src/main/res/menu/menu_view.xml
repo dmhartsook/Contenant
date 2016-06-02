@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.ucsb.cs.cs185.contenant.contenant.MainActivity">
     <item
-        android:id="@+id/save_home"
-        android:title="@string/save"
-        android:icon="@drawable/ic_done_white_24dp"
+        android:id="@+id/edit_home"
+        android:title="@string/edit"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
         app:showAsAction="always"
         />
 </menu>

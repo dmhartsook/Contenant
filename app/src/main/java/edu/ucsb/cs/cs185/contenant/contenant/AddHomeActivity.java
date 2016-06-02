@@ -61,6 +61,7 @@ public class AddHomeActivity extends AppCompatActivity{
         }
         return super.dispatchTouchEvent(ev);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_new, menu);
@@ -71,7 +72,7 @@ public class AddHomeActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.save) {
+        if (id == R.id.save_home) {
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
             this.finish();
             startActivity(intent);
