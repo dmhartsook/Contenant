@@ -29,12 +29,7 @@ public class AddHomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
-        House home;
-        if (savedInstanceState != null) {
-            home = (House) savedInstanceState.getSerializable(Constants.HOME);
-        } else {
-            home = (House) getIntent().getSerializableExtra(Constants.HOME);
-        }
+        House home = (House) getIntent().getSerializableExtra(Constants.HOME);
         if (home != null) {
             initializeFields(home);
         }
@@ -131,5 +126,13 @@ public class AddHomeActivity extends AppCompatActivity{
         outState.putSerializable(Constants.HOME, createHouse());
 
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        House home = (House) savedInstanceState.getSerializable(Constants.HOME);
+        initializeFields(home);
+        
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }
