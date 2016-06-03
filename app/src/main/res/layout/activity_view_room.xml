@@ -44,11 +44,38 @@
                 <me.grantland.widget.AutofitTextView
                     android:paddingLeft="20dp"
                     android:paddingTop="30dp"
+                    android:id="@+id/room_types"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/room_type"
+                    android:textSize="24sp"
+                    />
+
+                <TextView
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/room_type_string"
+                    android:layout_toRightOf="@id/room_types"
+                    android:layout_alignBaseline="@id/room_types"
+                    android:text="Bedroom"
+                    android:textSize="20sp"/>
+
+
+
+                <me.grantland.widget.AutofitTextView
+                    android:paddingLeft="20dp"
+                    android:paddingTop="30dp"
                     android:id="@+id/room_notes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:layout_below="@id/room_types"
                     android:text="@string/notes"
                     android:textSize="24sp"
                     />
@@ -60,6 +87,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/notes"
+                    android:layout_below="@id/room_type_string"
                     android:layout_toRightOf="@id/room_notes"
                     android:layout_alignBaseline="@id/home_notes"
                     android:text="great"

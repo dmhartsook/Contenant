@@ -35,6 +35,9 @@ public class ViewRoomActivity extends AppCompatActivity {
         title_view = (TextView) findViewById(R.id.room_notes);
         title_view.setTypeface(face);
 
+        title_view = (TextView) findViewById(R.id.room_types);
+        title_view.setTypeface(face);
+
 
     }
 
