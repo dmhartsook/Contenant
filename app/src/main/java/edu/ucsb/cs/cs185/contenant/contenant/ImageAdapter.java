@@ -1,24 +1,27 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by Deanna on 6/2/16.
  */
 public class ImageAdapter extends BaseAdapter {
-    private Context mContext;
+    private Context context;
+    private LayoutInflater layoutInflater;
 
     public ImageAdapter(Context c) {
-        mContext = c;
+        context = c;
+        layoutInflater = LayoutInflater.from(c);
     }
 
     public int getCount() {
-        return 1;
+        return 3;
     }
 
     public Object getItem(int position) {
@@ -29,21 +32,20 @@ public class ImageAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
+        View grid;
+        if(convertView==null){
+            grid = layoutInflater.inflate(R.layout.choose_home_item, null);
+        }else{
+            grid = convertView;
         }
 
+        ImageView imageView = (ImageView) grid.findViewById(R.id.home_image);
         imageView.setImageResource(R.drawable.sample_house);
-        return imageView;
+        TextView textView = (TextView) grid.findViewById(R.id.text);
+        textView.setText("Home " + String.valueOf(position));
+
+        return grid;
     }
 
 }
