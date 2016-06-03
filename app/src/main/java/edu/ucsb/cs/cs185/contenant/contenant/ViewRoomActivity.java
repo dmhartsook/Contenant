@@ -3,6 +3,7 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+
+import java.io.Serializable;
 
 import edu.ucsb.cs.cs185.contenant.contenant.R;
 
@@ -47,5 +50,29 @@ public class ViewRoomActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        TextView notes = (TextView) findViewById(R.id.notes);
+        Room room = new Room(notes.getText().toString());
+
+        outState.putSerializable(Constants.ROOM, room);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Room room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
+        initializeFields(room);
+
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    /* Fills in the fields with the values in the room. */
+    private void initializeFields(@NonNull Room room) {
+        TextView notes = (TextView) findViewById(R.id.notes);
+        notes.setText(room.getNotes());
     }
 }
