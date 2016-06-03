@@ -26,8 +26,12 @@ public class ViewRoomActivity extends AppCompatActivity {
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
 
-        TextView title_view = (TextView) findViewById(R.id.room_notes);
+        TextView title_view = (TextView) findViewById(R.id.room_title);
         title_view.setTypeface(face);
+
+        title_view = (TextView) findViewById(R.id.room_notes);
+        title_view.setTypeface(face);
+
 
     }
 
