@@ -21,7 +21,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return 3;
+        return 5;
     }
 
     public Object getItem(int position) {
