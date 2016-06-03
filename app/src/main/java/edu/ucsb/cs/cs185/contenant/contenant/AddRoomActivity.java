@@ -11,7 +11,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.view.Menu;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -33,6 +35,13 @@ public class AddRoomActivity extends AppCompatActivity {
         title_view = (TextView) findViewById(R.id.room_notes);
         Typeface face2 = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face2);
+
+        title_view = (TextView) findViewById(R.id.room_type);
+        Typeface face3 = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face3);
+
+        Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+        String text = dropdown.getSelectedItem().toString();
     }
 
     @Override
