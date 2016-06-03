@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:clickable="true">
+    android:clickable="false">
     <ImageView
         android:id="@+id/home_image"
         android:layout_width="150dp"

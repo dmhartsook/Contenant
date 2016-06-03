@@ -9,13 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
- * Created by Deanna on 6/2/16.
+ * And adapter for displaying all the homes in a GridView.
  */
-public class ImageAdapter extends BaseAdapter {
+public class ChooseHomeImageAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public ImageAdapter(Context c) {
+    public ChooseHomeImageAdapter(Context c) {
         context = c;
         layoutInflater = LayoutInflater.from(c);
     }
