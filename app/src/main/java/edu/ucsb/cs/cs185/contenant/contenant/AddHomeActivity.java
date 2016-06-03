@@ -98,21 +98,41 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save_home) {
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
-            EditText address = (EditText) findViewById(R.id.edit_address);
-            EditText price = (EditText) findViewById(R.id.edit_price);
-            EditText notes = (EditText) findViewById(R.id.edit_home_notes);
 
-            House thisHome = new House(
-                    address.getText().toString(),
-                    price.getText().toString(),
-                    notes.getText().toString());
-
-            intent.putExtra(Constants.HOME, thisHome);
+            intent.putExtra(Constants.HOME, createHouse());
 
             this.finish();
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /* Creates a House object from all the fields. */
+    @NonNull
+    private House createHouse() {
+        EditText address = (EditText) findViewById(R.id.edit_address);
+        EditText price = (EditText) findViewById(R.id.edit_price);
+        EditText notes = (EditText) findViewById(R.id.edit_home_notes);
+
+        return new House(
+                address.getText().toString(),
+                price.getText().toString(),
+                notes.getText().toString());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable(Constants.HOME, createHouse());
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        House home = (House) savedInstanceState.getSerializable(Constants.HOME);
+        initializeFields(home);
+        
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }
