@@ -57,8 +57,9 @@ public class AddHomeActivity extends AppCompatActivity{
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateHouse();
                 Intent intent = new Intent(AddHomeActivity.this, AddRoomActivity.class);
-                intent.putExtra(Constants.HOME, house);
+                intent.putExtra(Constants.HOME_ID, house.getId());
                 startActivity(intent);
             }
         });

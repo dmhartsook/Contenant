@@ -16,4 +16,15 @@ public class HouseStorage {
         houses.put(house.getId(), house);
     }
 
+    public static House getHouse(int houseId) {
+        return houses.get(houseId);
+    }
+
+    public static void addRoomToHouse(Room room, int myHouseId) {
+        House house = houses.get(myHouseId);
+        if (house != null) {
+            house.addRoom(room);
+            addHouse(house);
+        }
+    }
 }

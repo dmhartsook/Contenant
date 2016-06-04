@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
@@ -21,16 +22,19 @@ import android.widget.TextView;
 public class AddRoomActivity extends AppCompatActivity {
 
     TextView title_view;
-    private House my_house;
     private Room room;
+    private int myHouseId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_room);
 
-        my_house = (House) getIntent().getSerializableExtra(Constants.HOME);
-        room = new Room(my_house.getId());
+        myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        if (myHouseId == -1) {
+            Log.e("Add Room Activity", "No house ID passed!");
+        }
+        room = new Room(myHouseId);
 
         title_view = (TextView) findViewById(R.id.room_title);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -68,7 +72,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
         if (id == R.id.save) {
             updateRoom();
-            my_house.addRoom(room);
+            HouseStorage.addRoomToHouse(room, myHouseId);
             Intent intent = new Intent(AddRoomActivity.this, AddHomeActivity.class);
             this.finish();
             startActivity(intent);
