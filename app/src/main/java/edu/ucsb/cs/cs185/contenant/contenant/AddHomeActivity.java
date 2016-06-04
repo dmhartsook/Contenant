@@ -1,31 +1,52 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Created by Allison on 5/29/2016.
  */
 public class AddHomeActivity extends AppCompatActivity{
-
     TextView title_view;
+    private static final String[] permissions = {Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE};
+
+    private static final int PERMISSIONS_REQUEST = 1;
+    private static final int IMAGE_CAPTURE_REQUEST_CODE = 2;
+    private static final String NUM_IMAGES = "numberImages";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
@@ -58,6 +79,25 @@ public class AddHomeActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+        Button camera_button = (Button) findViewById(R.id.camera_button);
+        camera_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (ContextCompat.checkSelfPermission(view.getContext(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        ActivityCompat.requestPermissions(AddHomeActivity.this,
+                                permissions,
+                                PERMISSIONS_REQUEST);
+                    }
+                } else {
+                    openCamera();
+                }
+            }
+        });
     }
 
     /*
@@ -75,6 +115,60 @@ public class AddHomeActivity extends AppCompatActivity{
         EditText notesView = (EditText) findViewById(R.id.edit_home_notes);
         String notes = home.getNotes();
         notesView.setText(notes);
+    }
+
+    private void openCamera() {
+        File image = null;
+        String filename;
+
+        File imageFolder = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        filename = "/photo001.jpg";
+
+        imageFolder.mkdirs();
+        try {
+            image = new File(imageFolder, filename);
+            image.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
+        startActivityForResult(cameraIntent, IMAGE_CAPTURE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST) { // camera, read/write external
+            if (grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                // Permission denied so exit
+                new AlertDialog.Builder(this)
+                        .setTitle("Need Permission")
+                        .setMessage("We don't have the necessary permissions.")
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {}
+                        })
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                finish();
+                                System.exit(-1);
+                            }
+                        })
+                        .show();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode ==  IMAGE_CAPTURE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+            }
+        }
     }
 
     @Override
