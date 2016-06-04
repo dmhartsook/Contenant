@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -63,7 +62,7 @@ public class AddRoomActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.save_home) {
+        if (id == R.id.save) {
             Intent intent = new Intent(AddRoomActivity.this, AddHomeActivity.class);
             this.finish();
             startActivity(intent);
@@ -74,12 +73,15 @@ public class AddRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        EditText notes = (EditText) findViewById(R.id.edit_room_notes);
-        Room room = new Room(notes.getText().toString());
-
-        outState.putSerializable(Constants.ROOM, room);
+        outState.putSerializable(Constants.ROOM, createRoom());
 
         super.onSaveInstanceState(outState);
+    }
+
+    @NonNull
+    private Room createRoom() {
+        EditText notes = (EditText) findViewById(R.id.edit_room_notes);
+        return new Room(notes.getText().toString());
     }
 
     @Override

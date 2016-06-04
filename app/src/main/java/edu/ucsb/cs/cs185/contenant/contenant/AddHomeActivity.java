@@ -96,7 +96,7 @@ public class AddHomeActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.save_home) {
+        if (id == R.id.save) {
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
 
             intent.putExtra(Constants.HOME, createHouse());
