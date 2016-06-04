@@ -31,6 +31,10 @@
             android:windowSoftInputMode="adjustPan|stateHidden"/>
         <activity android:name="ViewRoomActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name="ChooseHomeActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity android:name="ChooseRoomActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
     </application>
 
 </manifest>

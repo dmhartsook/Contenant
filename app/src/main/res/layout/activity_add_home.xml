@@ -46,8 +46,6 @@
                 <Button
                     android:layout_marginTop="35dp"
                     android:layout_width="wrap_content"
-                    android:id="@+id/camera_button"
-                    android:clickable="true"
                     android:padding="10dp"
                     android:textSize="14sp"
                     android:singleLine="true"

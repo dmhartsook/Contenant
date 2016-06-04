@@ -46,7 +46,7 @@ public class ViewHomeActivity extends AppCompatActivity {
         fabView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ViewHomeActivity.this, ViewRoomActivity.class);
+                Intent intent = new Intent(ViewHomeActivity.this, ChooseRoomActivity.class);
                 startActivity(intent);
             }
         });
