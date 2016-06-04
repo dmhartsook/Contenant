@@ -33,6 +33,8 @@ public class AddHomeActivity extends AppCompatActivity{
         house = (House) getIntent().getSerializableExtra(Constants.HOME);
         if (house != null) {
             initializeFields(house);
+        } else {
+            house = new House();
         }
 
         title_view=(TextView)findViewById(R.id.home_title);

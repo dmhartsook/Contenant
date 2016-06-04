@@ -14,8 +14,12 @@ public class House implements Serializable {
     private String price;
     private String notes;
 
+    public House() {
+        this.id = nextId.incrementAndGet();
+    }
+
     public House(String address, String price, String notes) {
-        id = nextId.incrementAndGet();
+        this.id = nextId.incrementAndGet();
         this.address = address;
         this.price = price;
         this.notes = notes;
