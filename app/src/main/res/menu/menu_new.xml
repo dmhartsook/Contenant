@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.ucsb.cs.cs185.contenant.contenant.MainActivity">
     <item
-        android:id="@+id/save_home"
+        android:id="@+id/save"
         android:title="@string/save"
         android:icon="@drawable/ic_done_white_24dp"
         app:showAsAction="always"
