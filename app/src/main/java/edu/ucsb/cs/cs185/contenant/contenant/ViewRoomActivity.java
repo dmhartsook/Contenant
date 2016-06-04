@@ -8,14 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-
-import com.getbase.floatingactionbutton.FloatingActionButton;
-
-import java.io.Serializable;
-
-import edu.ucsb.cs.cs185.contenant.contenant.R;
 
 /**
  * Activity for viewing a specific home.
@@ -62,7 +55,7 @@ public class ViewRoomActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         TextView notes = (TextView) findViewById(R.id.notes);
-        Room room = new Room(notes.getText().toString());
+        Room room = new Room(0, notes.getText().toString()); // TODO: pass valid house id
 
         outState.putSerializable(Constants.ROOM, room);
 

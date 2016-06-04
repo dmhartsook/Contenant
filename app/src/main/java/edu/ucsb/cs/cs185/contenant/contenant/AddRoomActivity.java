@@ -30,6 +30,7 @@ public class AddRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_room);
 
         my_house = (House) getIntent().getSerializableExtra(Constants.HOME);
+        room = new Room(my_house.getId());
 
         title_view = (TextView) findViewById(R.id.room_title);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
