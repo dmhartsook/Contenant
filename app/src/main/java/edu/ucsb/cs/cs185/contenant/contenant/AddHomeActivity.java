@@ -105,6 +105,7 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             updateHouse();
+            HouseStorage.addHouse(house);
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
             intent.putExtra(Constants.HOME, house);
             this.finish();
