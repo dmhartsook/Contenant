@@ -21,11 +21,15 @@ import android.widget.TextView;
 public class AddRoomActivity extends AppCompatActivity {
 
     TextView title_view;
+    private House my_house;
+    private Room room;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_room);
+
+        my_house = (House) getIntent().getSerializableExtra(Constants.HOME);
 
         title_view = (TextView) findViewById(R.id.room_title);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -40,7 +44,6 @@ public class AddRoomActivity extends AppCompatActivity {
         title_view.setTypeface(face3);
 
         Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
-        String text = dropdown.getSelectedItem().toString();
     }
 
     @Override
@@ -73,15 +76,17 @@ public class AddRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(Constants.ROOM, createRoom());
+        updateRoom();
+        outState.putSerializable(Constants.ROOM, room);
 
         super.onSaveInstanceState(outState);
     }
 
+    /* Updates the fields in this.room with the values in the form. */
     @NonNull
-    private Room createRoom() {
+    private void updateRoom() {
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
-        return new Room(notes.getText().toString());
+        room.setNotes(notes.getText().toString());
     }
 
     @Override
@@ -92,8 +97,13 @@ public class AddRoomActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
-    /* Fills in the fields with the values in the room. */
+    /*
+     * Fills in the fields with the values in the room.
+     * Sets this.room to the passed room
+     */
     private void initializeFields(@NonNull Room room) {
+        this.room = room;
+
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
         notes.setText(room.getNotes());
     }
