@@ -67,6 +67,8 @@ public class AddRoomActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.save) {
+            updateRoom();
+            my_house.addRoom(room);
             Intent intent = new Intent(AddRoomActivity.this, AddHomeActivity.class);
             this.finish();
             startActivity(intent);

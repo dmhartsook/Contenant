@@ -28,6 +28,10 @@ public class Room implements Serializable {
         return notes;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setNotes(String notes) {
         this.notes = notes;
     }
