@@ -15,6 +15,7 @@
     <string name="add_home">Add A Home!</string>
     <string name="add_pic">Add Picture</string>
 
+    <string name="name">Name: </string>
     <string name="address">Address: </string>
     <string name="price">Price: </string>
     <string name="notes">Notes: </string>

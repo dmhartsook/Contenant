@@ -60,7 +60,32 @@
                 <me.grantland.widget.AutofitTextView
                     android:paddingLeft="20dp"
                     android:paddingTop="50dp"
+                    android:id="@+id/home_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/name"
+                    android:textSize="30sp"
+                    />
+
+                <EditText
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:paddingTop="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edit_name"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_toRightOf="@id/home_name"
+                    android:theme="@style/MyEditText"/>
+
+                <me.grantland.widget.AutofitTextView
+                    android:paddingLeft="20dp"
+                    android:paddingTop="30dp"
                     android:id="@+id/home_address"
+                    android:layout_below="@+id/home_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -72,10 +97,11 @@
                 <EditText
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="10dp"
-                    android:paddingTop="50dp"
+                    android:paddingTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edit_address"
+                    android:layout_below="@id/edit_name"
                     android:clickable="true"
                     android:focusableInTouchMode="true"
                     android:layout_toRightOf="@id/home_address"

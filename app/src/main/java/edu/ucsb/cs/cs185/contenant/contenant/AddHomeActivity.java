@@ -93,6 +93,10 @@ public class AddHomeActivity extends AppCompatActivity{
         Typeface face4= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face4);
 
+        title_view=(TextView)findViewById(R.id.home_name);
+        Typeface face5= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face5);
+
         home_image = (ImageView) findViewById(R.id.home_image);
 
         FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fab_home_add);
