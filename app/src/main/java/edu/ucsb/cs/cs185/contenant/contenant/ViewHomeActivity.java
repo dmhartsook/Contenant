@@ -77,32 +77,31 @@ public class ViewHomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.edit_home) {
+            updateHouse();
             Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
-
-            intent.putExtra(Constants.HOME, createHouse());
-
+            intent.putExtra(Constants.HOME, house);
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /* Creates a House object from all the fields. */
+    /* Updates the house field from all the fields. */
     @NonNull
-    private House createHouse() {
+    private void updateHouse() {
         TextView address = (TextView) findViewById(R.id.address);
         TextView price = (TextView) findViewById(R.id.price);
         TextView notes = (TextView) findViewById(R.id.notes);
 
-        return new House(
-                address.getText().toString(),
-                price.getText().toString(),
-                notes.getText().toString());
+        house.setAddress(address.getText().toString());
+        house.setPrice(price.getText().toString());
+        house.setNotes(notes.getText().toString());
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(Constants.HOME, createHouse());
+        updateHouse();
+        outState.putSerializable(Constants.HOME, house);
 
         super.onSaveInstanceState(outState);
     }
