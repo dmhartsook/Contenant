@@ -12,6 +12,7 @@ public class Room implements Serializable {
     private final int id;
     private final int houseId;
     private String notes;
+    private int typeIndex; // The index in the room_array
 
     public Room(int houseId, String notes) {
         this.id = nextId.incrementAndGet();
@@ -38,5 +39,13 @@ public class Room implements Serializable {
 
     public int getHouseId() {
         return houseId;
+    }
+
+    public int getTypeIndex() {
+        return typeIndex;
+    }
+
+    public void setTypeIndex(int typeIndex) {
+        this.typeIndex = typeIndex;
     }
 }

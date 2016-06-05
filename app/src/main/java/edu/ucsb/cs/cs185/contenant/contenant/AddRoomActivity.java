@@ -87,8 +87,6 @@ public class AddRoomActivity extends AppCompatActivity {
 
         room_image = (ImageView) findViewById(R.id.room_image);
 
-        Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
-
         Button cameraButton = (Button) findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +247,16 @@ public class AddRoomActivity extends AppCompatActivity {
 
         if (id == R.id.save) {
             saveRoom();
-            finish();
+            if (getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false)) {
+                Intent intent = new Intent(AddRoomActivity.this, ViewRoomActivity.class);
+                intent.putExtra(Constants.HOME_ID, room.getHouseId());
+                long roomId = (long) room.getId();
+                intent.putExtra(Constants.ROOM_ID, roomId);
+                finish();
+                startActivity(intent);
+            } else {
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -273,6 +280,8 @@ public class AddRoomActivity extends AppCompatActivity {
     private void updateRoom() {
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
         room.setNotes(notes.getText().toString());
+        Spinner roomTypeDropdown = (Spinner) findViewById(R.id.spinner1);
+        room.setTypeIndex(roomTypeDropdown.getSelectedItemPosition());
     }
 
     @Override
@@ -292,6 +301,8 @@ public class AddRoomActivity extends AppCompatActivity {
 
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
         notes.setText(room.getNotes());
+        Spinner roomTypeDropdown = (Spinner) findViewById(R.id.spinner1);
+        roomTypeDropdown.setSelection(room.getTypeIndex());
     }
 
     @Override
