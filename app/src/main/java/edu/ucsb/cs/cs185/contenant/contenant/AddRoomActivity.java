@@ -72,10 +72,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
         if (id == R.id.save) {
             saveRoom();
-            Intent intent = new Intent(AddRoomActivity.this, AddHomeActivity.class);
-            intent.putExtra(Constants.HOME_ID, myHouseId);
-            this.finish();
-            startActivity(intent);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

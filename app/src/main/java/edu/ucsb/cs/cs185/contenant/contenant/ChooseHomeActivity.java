@@ -30,7 +30,7 @@ public class ChooseHomeActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Intent intent = new Intent(ChooseHomeActivity.this, ViewHomeActivity.class);
-                House house = (House) houseAdapter.getItem(position);
+                House house = houseAdapter.getItem(position);
                 intent.putExtra(Constants.HOME, house);
                 startActivity(intent);
             }

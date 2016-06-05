@@ -36,7 +36,7 @@ public class ChooseHomeImageAdapter extends BaseAdapter {
         return HouseStorage.getNumberOfHouses();
     }
 
-    public Object getItem(int position) {
+    public House getItem(int position) {
         return houses.get(position);
     }
 
