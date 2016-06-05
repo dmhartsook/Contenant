@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_help) {
             DiagFragment fragment = new DiagFragment();
+            fragment.title = getString(R.string.action_help);
+            fragment.text1 = getString(R.string.help_text);
+            fragment.text2 = getString(R.string.help_text2);
+            fragment.button = getString(R.string.ok);
             fragment.show(getFragmentManager(), "");
 
             return true;

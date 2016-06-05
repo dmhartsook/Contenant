@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -112,45 +114,62 @@ public class AddHomeActivity extends AppCompatActivity{
     }
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
-        final AlertDialog.Builder builder = new AlertDialog.Builder(AddHomeActivity.this);
-        builder.setTitle("Add Photo");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (items[item].equals("Take Photo")) {
-                    userChosenTask="Take Photo";
 
-                } else if (items[item].equals("Choose from Library")) {
-                    userChosenTask="Choose from Library";
+        final Dialog dialog = new Dialog(AddHomeActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.fragment2_diag);
 
-                } else if (items[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
-                if (ContextCompat.checkSelfPermission(builder.getContext(), Manifest.permission.CAMERA)
+        TextView title_view=(TextView)dialog.findViewById(R.id.frag_title);
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setText(R.string.add_photo);
+        title_view.setTypeface(face);
+
+        Button mButton2 = (Button) dialog.findViewById(R.id.frag_details1);
+        mButton2.setText(R.string.take_photo);
+
+        Button mButton3 = (Button) dialog.findViewById(R.id.frag_details2);
+        mButton3.setText(R.string.gal_photo);
+
+        Button mButton = (Button) dialog.findViewById(R.id.ok);
+        mButton.setText(R.string.cancel);
+
+        if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        ActivityCompat.requestPermissions(AddHomeActivity.this,
-                                permissions,
-                                PERMISSIONS_REQUEST);
-                    }
-                } else {
-                    if (userChosenTask.equals("Take Photo")) {
-                        openCamera();
-
-                    } else if (userChosenTask.equals("Choose from Library")) {
-                        openGallery();
-
-                    }
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(AddHomeActivity.this,
+                        permissions,
+                        PERMISSIONS_REQUEST);
             }
-        });
-        builder.show();
+        } else {
+            mButton2.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    openCamera();
+                    dialog.dismiss();
+                }
+            });
+            mButton3.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    openGallery();
+                    dialog.dismiss();
+                }
+            });
+            mButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+        }
+        dialog.show();
     }
 
-    private void openCamera() {
+    public void openCamera() {
         File image = null;
         String filename;
 

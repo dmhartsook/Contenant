@@ -4,7 +4,8 @@
     <string name="action_help">Help</string>
 
     <string name="help_text">To add a home, click the house button in the bottom right corner, and then click the button labelled \"New House.\" </string>
-    <string name = "help_text2">To view a home, click the house button in the bottom right corner, and then click the button labelled \"View Houses.\"</string>
+    <string name="help_text2">To view a home, click the house button in the bottom right corner, and then click the button labelled \"View Houses.\"</string>
+    <string name="ok">ok</string>
 
     <string name="view_house">View Houses</string>
     <string name="new_house">New House</string>
@@ -39,5 +40,10 @@
         <item>Other</item>
 
     </string-array>
+
+    <string name="add_photo">Add a Photo</string>
+    <string name="take_photo">Take a Photo</string>
+    <string name="gal_photo">Choose from Gallery</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

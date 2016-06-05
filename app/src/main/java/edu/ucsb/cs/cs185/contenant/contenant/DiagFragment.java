@@ -20,13 +20,17 @@ import android.widget.TextView;
 public class DiagFragment extends DialogFragment {
 
     Button mButton;
-    TextView mTextView;
+    TextView mTextView1;
+    TextView mTextView2;
     TextView title_view;
+    String title = "";
+    String text1 = "";
+    String text2 = "";
+    String button = "";
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Dialog dialog = new Dialog(getActivity());
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog);
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -34,11 +38,20 @@ public class DiagFragment extends DialogFragment {
         dialog.getWindow().setBackgroundDrawable(
                 new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        title_view=(TextView)dialog.findViewById(R.id.help_title);
+
+        title_view=(TextView)dialog.findViewById(R.id.frag_title);
         Typeface face= Typeface.createFromAsset(getActivity().getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setText(title);
         title_view.setTypeface(face);
+
+        mTextView1 = (TextView) dialog.findViewById(R.id.frag_details1);
+        mTextView1.setText(text1);
+
+        mTextView2 = (TextView) dialog.findViewById(R.id.frag_details2);
+        mTextView2.setText(text2);
+
         mButton = (Button) dialog.findViewById(R.id.ok);
-        mTextView = (TextView) dialog.findViewById(R.id.details1);
+        mButton.setText(button);
         mButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -48,5 +61,4 @@ public class DiagFragment extends DialogFragment {
         });
         return dialog;
     }
-
 }
