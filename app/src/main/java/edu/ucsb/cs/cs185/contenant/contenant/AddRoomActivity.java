@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
@@ -21,11 +22,19 @@ import android.widget.TextView;
 public class AddRoomActivity extends AppCompatActivity {
 
     TextView title_view;
+    private Room room;
+    private int myHouseId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_room);
+
+        myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        if (myHouseId == -1) {
+            Log.e("Add Room Activity", "No house ID passed!");
+        }
+        room = new Room(myHouseId);
 
         title_view = (TextView) findViewById(R.id.room_title);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -40,7 +49,6 @@ public class AddRoomActivity extends AppCompatActivity {
         title_view.setTypeface(face3);
 
         Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
-        String text = dropdown.getSelectedItem().toString();
     }
 
     @Override
@@ -63,6 +71,8 @@ public class AddRoomActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.save) {
+            updateRoom();
+            HouseStorage.addRoomToHouse(room, myHouseId);
             Intent intent = new Intent(AddRoomActivity.this, AddHomeActivity.class);
             this.finish();
             startActivity(intent);
@@ -73,15 +83,17 @@ public class AddRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(Constants.ROOM, createRoom());
+        updateRoom();
+        outState.putSerializable(Constants.ROOM, room);
 
         super.onSaveInstanceState(outState);
     }
 
+    /* Updates the fields in this.room with the values in the form. */
     @NonNull
-    private Room createRoom() {
+    private void updateRoom() {
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
-        return new Room(notes.getText().toString());
+        room.setNotes(notes.getText().toString());
     }
 
     @Override
@@ -92,8 +104,13 @@ public class AddRoomActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
     }
 
-    /* Fills in the fields with the values in the room. */
+    /*
+     * Fills in the fields with the values in the room.
+     * Sets this.room to the passed room
+     */
     private void initializeFields(@NonNull Room room) {
+        this.room = room;
+
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
         notes.setText(room.getNotes());
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,8 +58,9 @@ public class AddHomeActivity extends AppCompatActivity{
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                updateHouse();
                 Intent intent = new Intent(AddHomeActivity.this, AddRoomActivity.class);
-                intent.putExtra(Constants.HOME, house);
+                intent.putExtra(Constants.HOME_ID, house.getId());
                 startActivity(intent);
             }
         });
@@ -105,6 +107,7 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             updateHouse();
+            HouseStorage.addHouse(house);
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
             intent.putExtra(Constants.HOME, house);
             this.finish();
