@@ -132,6 +132,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
+                    userChosenTask = "Take Photo";
                     openCamera();
                     dialog.dismiss();
                 }
@@ -140,6 +141,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
+                    userChosenTask = "Choose from Library";
                     openGallery();
                     dialog.dismiss();
                 }
