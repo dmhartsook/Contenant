@@ -12,6 +12,7 @@ public class House implements Serializable {
     private static AtomicInteger nextId = new AtomicInteger();
 
     private int id;
+    private String name;
     private String address;
     private String price;
     private String notes;
@@ -21,8 +22,9 @@ public class House implements Serializable {
         this.id = nextId.incrementAndGet();
     }
 
-    public House(String address, String price, String notes) {
+    public House(String name, String address, String price, String notes) {
         this.id = nextId.incrementAndGet();
+        this.name = name;
         this.address = address;
         this.price = price;
         this.notes = notes;
@@ -30,6 +32,10 @@ public class House implements Serializable {
 
     public House(int houseId) {
         this.id = houseId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setAddress(String address) {
@@ -50,6 +56,10 @@ public class House implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getAddress() {

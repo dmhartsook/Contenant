@@ -59,6 +59,8 @@ public class ViewHomeActivity extends AppCompatActivity {
 
     /* Sets all the TextView fields with the values passed in the house. */
     private void initializeFields(@NonNull House home) {
+        TextView textView = (TextView) findViewById(R.id.home_title);
+        textView.setText(home.getName());
         TextView addressView = (TextView) findViewById(R.id.address);
         addressView.setText(home.getAddress());
         TextView priceView = (TextView) findViewById(R.id.price);

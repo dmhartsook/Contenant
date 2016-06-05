@@ -263,6 +263,10 @@ public class AddHomeActivity extends AppCompatActivity{
     private void initializeFields(@NonNull House home) {
         house = home;
 
+        EditText nameView = (EditText) findViewById(R.id.edit_name);
+        String name = home.getName();
+        nameView.setText(name);
+
         EditText addressView = (EditText) findViewById(R.id.edit_address);
         String address = home.getAddress();
         addressView.setText(address);
@@ -318,10 +322,12 @@ public class AddHomeActivity extends AppCompatActivity{
     /* Updates the house field from all the fields. */
     @NonNull
     private void updateHouse() {
+        EditText name = (EditText) findViewById(R.id.edit_name) ;
         EditText address = (EditText) findViewById(R.id.edit_address);
         EditText price = (EditText) findViewById(R.id.edit_price);
         EditText notes = (EditText) findViewById(R.id.edit_home_notes);
 
+        house.setName(name.getText().toString());
         house.setAddress(address.getText().toString());
         house.setPrice(price.getText().toString());
         house.setNotes(notes.getText().toString());
