@@ -38,7 +38,7 @@ public class ChooseRoomImageAdapter extends BaseAdapter {
         return rooms.size();
     }
 
-    public Object getItem(int position) {
+    public Room getItem(int position) {
         return rooms.get(position);
     }
 

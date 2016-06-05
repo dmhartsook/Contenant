@@ -31,7 +31,6 @@ public class AddRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_room);
 
         myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
-        Log.d("AddRoom", "house id = " + myHouseId);
         if (myHouseId == -1) {
             Log.e("Add Room Activity", "No house ID passed!");
         }

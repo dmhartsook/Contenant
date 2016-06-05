@@ -77,7 +77,7 @@ public class ViewHomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.edit_home) {
+        if (id == R.id.edit) {
             Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
             intent.putExtra(Constants.HOME_ID, house.getId());
             startActivity(intent);

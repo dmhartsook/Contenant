@@ -7,4 +7,5 @@ public final class Constants {
     public static final String HOME = "edu.ucsb.cs.cs185.contenant.HOME";
     public static final String ROOM = "edu.ucsb.cs.cs185.contenant.ROOM";
     public static final String HOME_ID = "edu.ucsb.cs.cs185.contenant.HOME_ID";
+    public static final String ROOM_ID = "edu.ucsb.cs.cs185.contenant.ROOM_ID";
 }

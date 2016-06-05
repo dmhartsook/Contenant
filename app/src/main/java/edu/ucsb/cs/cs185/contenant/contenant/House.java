@@ -67,4 +67,8 @@ public class House implements Serializable {
     public Collection<Room> getRooms() {
         return rooms.values();
     }
+
+    public Room getRoom(int roomId) {
+        return rooms.get(roomId);
+    }
 }

@@ -19,18 +19,20 @@ public class ChooseRoomActivity extends AppCompatActivity {
         setContentView(R.layout.choose_room);
 
         Intent intent = getIntent();
-        int house_id = intent.getIntExtra(Constants.HOME_ID, -1);
-        if (house_id == -1) {
+        final int houseId = intent.getIntExtra(Constants.HOME_ID, -1);
+        if (houseId == -1) {
             Log.e("ChooseRoom", "No house ID passed");
         }
 
         GridView gridview = (GridView) findViewById(R.id.choose_room_gridview);
-        gridview.setAdapter(new ChooseRoomImageAdapter(this, house_id));
+        gridview.setAdapter(new ChooseRoomImageAdapter(this, houseId));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 Intent intent = new Intent(ChooseRoomActivity.this, ViewRoomActivity.class);
+                intent.putExtra(Constants.ROOM_ID, id);
+                intent.putExtra(Constants.HOME_ID, houseId);
                 startActivity(intent);
             }
         });

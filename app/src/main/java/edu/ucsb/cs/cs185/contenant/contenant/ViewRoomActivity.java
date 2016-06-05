@@ -6,14 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 /**
- * Activity for viewing a specific home.
+ * Activity for viewing a specific room.
  */
 public class ViewRoomActivity extends AppCompatActivity {
+
+    private int myHomeId;
+    private Room room;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +35,17 @@ public class ViewRoomActivity extends AppCompatActivity {
         title_view = (TextView) findViewById(R.id.room_types);
         title_view.setTypeface(face);
 
+        myHomeId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        if (myHomeId == -1) {
+            Log.e("ViewRoom", "No home passed but rooms must be in houses");
+        }
 
+        int roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
+        if (roomId == -1) {
+            Log.e("ViewRoom", "Invalid room ID, " + roomId + ", passed. Uh oh");
+        }
+        room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
+        initializeFields(room);
     }
 
     @Override
@@ -44,7 +58,7 @@ public class ViewRoomActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.edit_home) {
+        if (id == R.id.edit) {
             Intent intent = new Intent(ViewRoomActivity.this, AddRoomActivity.class);
             startActivity(intent);
         }
@@ -54,9 +68,6 @@ public class ViewRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        TextView notes = (TextView) findViewById(R.id.notes);
-        Room room = new Room(0, notes.getText().toString()); // TODO: pass valid house id
-
         outState.putSerializable(Constants.ROOM, room);
 
         super.onSaveInstanceState(outState);
@@ -64,7 +75,7 @@ public class ViewRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Room room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
+        room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
         initializeFields(room);
 
         super.onRestoreInstanceState(savedInstanceState);
