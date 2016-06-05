@@ -1,5 +1,7 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;

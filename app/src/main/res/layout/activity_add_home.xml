@@ -181,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/fab_margin"
             fab:fab_labelStyle="@style/menu_labels_style"
-            fab:menu_icon="@drawable/ic_home_white_24dp">
+            fab:menu_icon="@drawable/ic_action_menu">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fab_home_add"

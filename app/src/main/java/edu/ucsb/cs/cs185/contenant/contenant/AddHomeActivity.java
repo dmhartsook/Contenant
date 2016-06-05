@@ -141,7 +141,7 @@ public class AddHomeActivity extends AppCompatActivity{
         mButton.setText(R.string.cancel);
 
         if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 ActivityCompat.requestPermissions(AddHomeActivity.this,
@@ -301,14 +301,14 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             saveHouse();
-            if (openViewHomeOnSave) {
+//            if (openViewHomeOnSave) {
                 Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
                 intent.putExtra(Constants.HOME, house);
                 this.finish();
                 startActivity(intent);
-            } else {
-                finish();
-            }
+//            } else {
+//                finish();
+//            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -327,7 +327,12 @@ public class AddHomeActivity extends AppCompatActivity{
         EditText price = (EditText) findViewById(R.id.edit_price);
         EditText notes = (EditText) findViewById(R.id.edit_home_notes);
 
-        house.setName(name.getText().toString());
+        if (name.getText().toString().isEmpty()) {
+            house.setName("My Home");
+        } else {
+            house.setName(name.getText().toString());
+        }
+
         house.setAddress(address.getText().toString());
         house.setPrice(price.getText().toString());
         house.setNotes(notes.getText().toString());
@@ -345,7 +350,7 @@ public class AddHomeActivity extends AppCompatActivity{
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         House home = (House) savedInstanceState.getSerializable(Constants.HOME);
         initializeFields(home);
-        
+
         super.onRestoreInstanceState(savedInstanceState);
     }
 
@@ -353,27 +358,27 @@ public class AddHomeActivity extends AppCompatActivity{
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST) { // camera, read/write external
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChosenTask.equals("Take Photo"))
-                        openCamera();
-                    else if(userChosenTask.equals("Choose from Library"))
-                        openGallery();
-                } else {
-                    // Permission denied so exit
-                    new AlertDialog.Builder(this)
-                            .setTitle("Need Permission")
-                            .setMessage("We don't have the necessary permissions.")
-                            .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {}
-                            })
-                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    finish();
-                                    System.exit(-1);
-                                }
-                            })
-                            .show();
-                }
+                if(userChosenTask.equals("Take Photo"))
+                    openCamera();
+                else if(userChosenTask.equals("Choose from Library"))
+                    openGallery();
+            } else {
+                // Permission denied so exit
+                new AlertDialog.Builder(this)
+                        .setTitle("Need Permission")
+                        .setMessage("We don't have the necessary permissions.")
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {}
+                        })
+                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                finish();
+                                System.exit(-1);
+                            }
+                        })
+                        .show();
+            }
 
         }
     }
