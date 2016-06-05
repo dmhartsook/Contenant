@@ -119,6 +119,15 @@ public class AddHomeActivity extends AppCompatActivity{
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
+                if (items[item].equals("Take Photo")) {
+                    userChosenTask="Take Photo";
+
+                } else if (items[item].equals("Choose from Library")) {
+                    userChosenTask="Choose from Library";
+
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
                 if (ContextCompat.checkSelfPermission(builder.getContext(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
 
@@ -128,16 +137,12 @@ public class AddHomeActivity extends AppCompatActivity{
                                 PERMISSIONS_REQUEST);
                     }
                 } else {
-                    if (items[item].equals("Take Photo")) {
-                        userChosenTask="Take Photo";
+                    if (userChosenTask.equals("Take Photo")) {
                         openCamera();
 
-                    } else if (items[item].equals("Choose from Library")) {
-                        userChosenTask="Choose from Library";
+                    } else if (userChosenTask.equals("Choose from Library")) {
                         openGallery();
 
-                    } else if (items[item].equals("Cancel")) {
-                        dialog.dismiss();
                     }
                 }
             }
@@ -214,8 +219,14 @@ public class AddHomeActivity extends AppCompatActivity{
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE)
                 onSelectFromGalleryResult(data);
-            else if (requestCode == REQUEST_CAMERA)
+            else if (requestCode == IMAGE_CAPTURE_REQUEST_CODE) {
+                if (data == null) {
+                    Log.d("AddHome", "Null data");
+                } else {
+                    Log.d("AddHome", "Not null data");
+                }
                 onCaptureImageResult(data);
+            }
         }
     }
 
