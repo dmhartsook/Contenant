@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,9 @@ public class ChooseRoomImageAdapter extends BaseAdapter {
         layoutInflater = LayoutInflater.from(c);
 
         House house = HouseStorage.getHouse(house_id);
+        if (house == null) {
+            Log.e("ChooseRoom", "House is null - invalid house id: " + house_id);
+        }
         rooms = new ArrayList<>(house.getRooms());
         Collections.sort(rooms, new Comparator<Room>() {
             @Override

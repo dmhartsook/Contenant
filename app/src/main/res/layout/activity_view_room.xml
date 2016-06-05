@@ -62,7 +62,6 @@
                     android:id="@+id/room_type_string"
                     android:layout_toRightOf="@id/room_types"
                     android:layout_alignBaseline="@id/room_types"
-                    android:text="Bedroom"
                     android:textSize="20sp"/>
 
 

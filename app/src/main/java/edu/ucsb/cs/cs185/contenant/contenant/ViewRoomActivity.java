@@ -61,6 +61,7 @@ public class ViewRoomActivity extends AppCompatActivity {
         if (id == R.id.edit) {
             Intent intent = new Intent(ViewRoomActivity.this, AddRoomActivity.class);
             intent.putExtra(Constants.ROOM, room);
+            intent.putExtra(Constants.OPEN_VIEW_ON_SAVE, true);
             startActivity(intent);
         }
 
@@ -86,5 +87,8 @@ public class ViewRoomActivity extends AppCompatActivity {
     private void initializeFields(@NonNull Room room) {
         TextView notes = (TextView) findViewById(R.id.notes);
         notes.setText(room.getNotes());
+        TextView roomType = (TextView) findViewById(R.id.room_type_string);
+        String[] roomTypes = getResources().getStringArray(R.array.room_array);
+        roomType.setText(roomTypes[room.getTypeIndex()]);
     }
 }
