@@ -35,4 +35,8 @@ public class Room implements Serializable {
     public void setNotes(String notes) {
         this.notes = notes;
     }
+
+    public int getHouseId() {
+        return houseId;
+    }
 }

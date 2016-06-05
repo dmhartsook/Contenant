@@ -62,11 +62,14 @@ public class AddRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_room);
 
-        myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
-        if (myHouseId == -1) {
-            Log.e("Add Room Activity", "No house ID passed!");
+        room = (Room) getIntent().getSerializableExtra(Constants.ROOM);
+        if (room != null) {
+            initializeFields(room);
+            myHouseId = room.getHouseId();
+        } else {
+            myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+            room = new Room(myHouseId);
         }
-        room = new Room(myHouseId);
 
         title_view = (TextView) findViewById(R.id.room_title);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");

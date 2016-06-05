@@ -60,6 +60,7 @@ public class ViewRoomActivity extends AppCompatActivity {
 
         if (id == R.id.edit) {
             Intent intent = new Intent(ViewRoomActivity.this, AddRoomActivity.class);
+            intent.putExtra(Constants.ROOM, room);
             startActivity(intent);
         }
 
