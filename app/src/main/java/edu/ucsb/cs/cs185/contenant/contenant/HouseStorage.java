@@ -3,9 +3,7 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 import android.util.Log;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 
 /**
  * A storage class for houses. Should interact with a database.

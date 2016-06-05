@@ -28,8 +28,9 @@ public class ViewHomeActivity extends AppCompatActivity {
         house = (House) getIntent().getSerializableExtra(Constants.HOME);
         if (house == null) {
             Log.e("View Home Activity", "No house passed!");
+        } else {
+            initializeFields(house);
         }
-        initializeFields(house);
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
 
