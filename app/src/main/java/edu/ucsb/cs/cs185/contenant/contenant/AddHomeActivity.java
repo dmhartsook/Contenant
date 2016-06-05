@@ -31,11 +31,12 @@ public class AddHomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
-        house = (House) getIntent().getSerializableExtra(Constants.HOME);
-        if (house != null) {
-            initializeFields(house);
-        } else {
+        int houseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        if (houseId == -1) {
             house = new House();
+        } else {
+            house = HouseStorage.getHouse(houseId);
+            initializeFields(house);
         }
 
         title_view=(TextView)findViewById(R.id.home_title);
@@ -58,7 +59,7 @@ public class AddHomeActivity extends AppCompatActivity{
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateHouse();
+                saveHouse();
                 Intent intent = new Intent(AddHomeActivity.this, AddRoomActivity.class);
                 intent.putExtra(Constants.HOME_ID, house.getId());
                 startActivity(intent);
@@ -106,8 +107,7 @@ public class AddHomeActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         if (id == R.id.save) {
-            updateHouse();
-            HouseStorage.addHouse(house);
+            saveHouse();
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
             intent.putExtra(Constants.HOME, house);
             this.finish();
@@ -115,6 +115,11 @@ public class AddHomeActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveHouse() {
+        updateHouse();
+        HouseStorage.addHouse(house);
     }
 
     /* Updates the house field from all the fields. */

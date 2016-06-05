@@ -31,6 +31,7 @@ public class AddRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_room);
 
         myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        Log.d("AddRoom", "house id = " + myHouseId);
         if (myHouseId == -1) {
             Log.e("Add Room Activity", "No house ID passed!");
         }
@@ -71,14 +72,19 @@ public class AddRoomActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.save) {
-            updateRoom();
-            HouseStorage.addRoomToHouse(room, myHouseId);
+            saveRoom();
             Intent intent = new Intent(AddRoomActivity.this, AddHomeActivity.class);
+            intent.putExtra(Constants.HOME_ID, myHouseId);
             this.finish();
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveRoom() {
+        updateRoom();
+        HouseStorage.addRoomToHouse(room, myHouseId);
     }
 
     @Override

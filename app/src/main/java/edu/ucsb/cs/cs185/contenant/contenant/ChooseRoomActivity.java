@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -17,8 +18,14 @@ public class ChooseRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_room);
 
+        Intent intent = getIntent();
+        int house_id = intent.getIntExtra(Constants.HOME_ID, -1);
+        if (house_id == -1) {
+            Log.e("ChooseRoom", "No house ID passed");
+        }
+
         GridView gridview = (GridView) findViewById(R.id.choose_room_gridview);
-        gridview.setAdapter(new ChooseRoomImageAdapter(this));
+        gridview.setAdapter(new ChooseRoomImageAdapter(this, house_id));
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
