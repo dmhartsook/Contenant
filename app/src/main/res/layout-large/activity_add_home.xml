@@ -2,65 +2,63 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="20dp"
     android:paddingBottom="20dp">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:paddingBottom="20dp">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="vertical" android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:id="@+id/home_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/add_home"
+                android:textSize="50sp"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:padding="10dp"
+                android:textSize="30sp"
+                android:id="@+id/camera_button"
+                android:clickable="true"
+                android:singleLine="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/mybutton"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/home_title"
+                android:text="@string/add_pic"
+                android:layout_gravity="center_horizontal"/>
 
             <ImageView
                 android:id="@+id/home_image"
                 android:paddingTop="20dp"
-                android:paddingLeft="20dp"
                 android:layout_width="350dp"
                 android:layout_height="350dp"
                 android:src="@drawable/home5"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"/>
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_horizontal"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_toRightOf="@+id/home_image"
-                android:orientation="vertical"
-                android:layout_marginTop="50dp">
-
-                <me.grantland.widget.AutofitTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:id="@+id/home_title"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/add_home"
-                    android:textSize="50sp"
-                    />
-
-                <Button
-                    android:layout_marginTop="100dp"
-                    android:layout_width="wrap_content"
-                    android:padding="10dp"
-                    android:textSize="30sp"
-                    android:id="@+id/camera_button"
-                    android:clickable="true"
-                    android:singleLine="true"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/mybutton"
-                    android:textColor="@android:color/white"
-                    android:layout_below="@+id/home_title"
-                    android:text="@string/add_pic"/>
-            </LinearLayout>
+                android:layout_height="wrap_content">
 
                 <me.grantland.widget.AutofitTextView
                     android:paddingLeft="20dp"
                     android:paddingTop="50dp"
-                    android:layout_below="@+id/home_image"
                     android:id="@+id/home_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,7 +77,6 @@
                     android:id="@+id/edit_address"
                     android:clickable="true"
                     android:focusableInTouchMode="true"
-                    android:layout_below="@id/home_image"
                     android:layout_toRightOf="@id/home_address"
                     android:theme="@style/MyEditText"/>
 
@@ -140,9 +137,10 @@
                     android:id="@+id/placeholder"
                     android:layout_width="550dp"
                     android:layout_height="wrap_content" />
-        </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
-    
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
