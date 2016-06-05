@@ -32,9 +32,6 @@ public class ViewRoomActivity extends AppCompatActivity {
         title_view = (TextView) findViewById(R.id.room_notes);
         title_view.setTypeface(face);
 
-        title_view = (TextView) findViewById(R.id.room_types);
-        title_view.setTypeface(face);
-
         myHomeId = getIntent().getIntExtra(Constants.HOME_ID, -1);
         if (myHomeId == -1) {
             Log.e("ViewRoom", "No home passed but rooms must be in houses");
@@ -87,8 +84,8 @@ public class ViewRoomActivity extends AppCompatActivity {
     private void initializeFields(@NonNull Room room) {
         TextView notes = (TextView) findViewById(R.id.notes);
         notes.setText(room.getNotes());
-        TextView roomType = (TextView) findViewById(R.id.room_type_string);
         String[] roomTypes = getResources().getStringArray(R.array.room_array);
-        roomType.setText(roomTypes[room.getTypeIndex()]);
+        TextView titleView = (TextView)findViewById(R.id.room_title);
+        titleView.setText(roomTypes[room.getTypeIndex()]);
     }
 }
