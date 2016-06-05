@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddHomeActivity.class);
+                intent.putExtra(Constants.OPEN_VIEW_ON_SAVE, true);
                 startActivity(intent);
             }
         });

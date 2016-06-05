@@ -56,6 +56,7 @@ public class AddHomeActivity extends AppCompatActivity{
     private static final int SELECT_FILE = 1;
     private static final int REQUEST_CAMERA = 0;
     private String userChosenTask;
+    private boolean openViewHomeOnSave;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +70,8 @@ public class AddHomeActivity extends AppCompatActivity{
             house = HouseStorage.getHouse(houseId);
             initializeFields(house);
         }
+
+        openViewHomeOnSave = getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false);
 
         title_view=(TextView)findViewById(R.id.home_title);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -257,10 +260,14 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             saveHouse();
-            Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
-            intent.putExtra(Constants.HOME, house);
-            this.finish();
-            startActivity(intent);
+            if (openViewHomeOnSave) {
+                Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
+                intent.putExtra(Constants.HOME, house);
+                this.finish();
+                startActivity(intent);
+            } else {
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -286,7 +293,6 @@ public class AddHomeActivity extends AppCompatActivity{
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         updateHouse();
-
         outState.putSerializable(Constants.HOME, house);
 
         super.onSaveInstanceState(outState);
