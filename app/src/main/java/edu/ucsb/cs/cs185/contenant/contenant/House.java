@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class House implements Serializable {
     private static AtomicInteger nextId = new AtomicInteger();
 
-    private final int id;
+    private int id;
     private String address;
     private String price;
     private String notes;
@@ -25,6 +25,10 @@ public class House implements Serializable {
         this.address = address;
         this.price = price;
         this.notes = notes;
+    }
+
+    public House(int houseId) {
+        this.id = houseId;
     }
 
     public void setAddress(String address) {

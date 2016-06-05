@@ -8,28 +8,40 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * And adapter for displaying all the homes in a GridView.
  */
 public class ChooseHomeImageAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
+    private ArrayList<House> houses;
 
     public ChooseHomeImageAdapter(Context c) {
         context = c;
         layoutInflater = LayoutInflater.from(c);
+        houses = new ArrayList<>(HouseStorage.getHousesCollection());
+        Collections.sort(houses, new Comparator<House>() {
+            @Override
+            public int compare(House lhs, House rhs) {
+                return Double.compare(lhs.getId(), rhs.getId());
+            }
+        });
     }
 
     public int getCount() {
-        return 5;
+        return HouseStorage.getNumberOfHouses();
     }
 
     public Object getItem(int position) {
-        return null;
+        return houses.get(position);
     }
 
     public long getItemId(int position) {
-        return 0;
+        return houses.get(position).getId();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
