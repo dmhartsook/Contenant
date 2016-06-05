@@ -1,6 +1,8 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -9,10 +11,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class House implements Serializable {
     private static AtomicInteger nextId = new AtomicInteger();
 
-    private final int id;
+    private int id;
     private String address;
     private String price;
     private String notes;
+    private HashMap<Integer, Room> rooms = new HashMap<>();
 
     public House() {
         this.id = nextId.incrementAndGet();
@@ -25,6 +28,10 @@ public class House implements Serializable {
         this.notes = notes;
     }
 
+    public House(int houseId) {
+        this.id = houseId;
+    }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -35,6 +42,10 @@ public class House implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void addRoom(Room room) {
+        rooms.put(room.getId(), room);
     }
 
     public int getId() {
@@ -51,5 +62,9 @@ public class House implements Serializable {
 
     public String getNotes() {
         return notes;
+    }
+
+    public Collection<Room> getRooms() {
+        return rooms.values();
     }
 }

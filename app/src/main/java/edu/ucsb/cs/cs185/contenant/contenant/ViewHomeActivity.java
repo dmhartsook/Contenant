@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,15 +18,18 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
  * Activity for viewing a specific home.
  */
 public class ViewHomeActivity extends AppCompatActivity {
+    private House house;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_home);
 
-        House home = (House) getIntent().getSerializableExtra(Constants.HOME);
-        if (home != null) {
-            initializeFields(home);
+        house = (House) getIntent().getSerializableExtra(Constants.HOME);
+        if (house == null) {
+            Log.e("View Home Activity", "No house passed!");
+        } else {
+            initializeFields(house);
         }
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -47,6 +51,7 @@ public class ViewHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewHomeActivity.this, ChooseRoomActivity.class);
+                intent.putExtra(Constants.HOME_ID, house.getId());
                 startActivity(intent);
             }
         });
@@ -74,31 +79,16 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         if (id == R.id.edit_home) {
             Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
-
-            intent.putExtra(Constants.HOME, createHouse());
-
+            intent.putExtra(Constants.HOME_ID, house.getId());
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    /* Creates a House object from all the fields. */
-    @NonNull
-    private House createHouse() {
-        TextView address = (TextView) findViewById(R.id.address);
-        TextView price = (TextView) findViewById(R.id.price);
-        TextView notes = (TextView) findViewById(R.id.notes);
-
-        return new House(
-                address.getText().toString(),
-                price.getText().toString(),
-                notes.getText().toString());
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(Constants.HOME, createHouse());
+        outState.putSerializable(Constants.HOME, house);
 
         super.onSaveInstanceState(outState);
     }

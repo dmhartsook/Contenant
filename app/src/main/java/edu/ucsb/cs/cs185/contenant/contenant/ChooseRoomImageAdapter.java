@@ -8,28 +8,42 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * Created by Allison on 6/4/2016.
  */
 public class ChooseRoomImageAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
+    private ArrayList<Room> rooms;
 
-    public ChooseRoomImageAdapter(Context c) {
+    public ChooseRoomImageAdapter(Context c, int house_id) {
         context = c;
         layoutInflater = LayoutInflater.from(c);
+
+        House house = HouseStorage.getHouse(house_id);
+        rooms = new ArrayList<>(house.getRooms());
+        Collections.sort(rooms, new Comparator<Room>() {
+            @Override
+            public int compare(Room lhs, Room rhs) {
+                return Double.compare(lhs.getId(), rhs.getId());
+            }
+        });
     }
 
     public int getCount() {
-        return 5;
+        return rooms.size();
     }
 
     public Object getItem(int position) {
-        return null;
+        return rooms.get(position);
     }
 
     public long getItemId(int position) {
-        return 0;
+        return rooms.get(position).getId();
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {

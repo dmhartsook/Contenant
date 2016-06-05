@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,7 @@ import java.io.IOException;
 public class AddHomeActivity extends AppCompatActivity{
 
     TextView title_view;
+    private House house;
     ImageView home_image;
 
     private static final String[] permissions = {Manifest.permission.CAMERA,
@@ -60,9 +62,12 @@ public class AddHomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
-        House home = (House) getIntent().getSerializableExtra(Constants.HOME);
-        if (home != null) {
-            initializeFields(home);
+        int houseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        if (houseId == -1) {
+            house = new House();
+        } else {
+            house = HouseStorage.getHouse(houseId);
+            initializeFields(house);
         }
 
         title_view=(TextView)findViewById(R.id.home_title);
@@ -87,7 +92,9 @@ public class AddHomeActivity extends AppCompatActivity{
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveHouse();
                 Intent intent = new Intent(AddHomeActivity.this, AddRoomActivity.class);
+                intent.putExtra(Constants.HOME_ID, house.getId());
                 startActivity(intent);
             }
         });
@@ -211,8 +218,11 @@ public class AddHomeActivity extends AppCompatActivity{
 
     /*
      * Sets all the EditView fields with the values in the home.
+     * Sets the house parameter to home.
      */
     private void initializeFields(@NonNull House home) {
+        house = home;
+
         EditText addressView = (EditText) findViewById(R.id.edit_address);
         String address = home.getAddress();
         addressView.setText(address);
@@ -246,10 +256,9 @@ public class AddHomeActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         if (id == R.id.save) {
+            saveHouse();
             Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
-
-            intent.putExtra(Constants.HOME, createHouse());
-
+            intent.putExtra(Constants.HOME, house);
             this.finish();
             startActivity(intent);
         }
@@ -257,22 +266,28 @@ public class AddHomeActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    /* Creates a House object from all the fields. */
+    private void saveHouse() {
+        updateHouse();
+        HouseStorage.addHouse(house);
+    }
+
+    /* Updates the house field from all the fields. */
     @NonNull
-    private House createHouse() {
+    private void updateHouse() {
         EditText address = (EditText) findViewById(R.id.edit_address);
         EditText price = (EditText) findViewById(R.id.edit_price);
         EditText notes = (EditText) findViewById(R.id.edit_home_notes);
 
-        return new House(
-                address.getText().toString(),
-                price.getText().toString(),
-                notes.getText().toString());
+        house.setAddress(address.getText().toString());
+        house.setPrice(price.getText().toString());
+        house.setNotes(notes.getText().toString());
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(Constants.HOME, createHouse());
+        updateHouse();
+
+        outState.putSerializable(Constants.HOME, house);
 
         super.onSaveInstanceState(outState);
     }
