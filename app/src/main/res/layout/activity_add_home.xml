@@ -42,12 +42,13 @@
                     android:text="@string/add_home"
                     android:textSize="30sp"
                     />
-
                 <Button
                     android:layout_marginTop="35dp"
                     android:layout_width="wrap_content"
                     android:padding="10dp"
                     android:textSize="14sp"
+                    android:id="@+id/camera_button"
+                    android:clickable="true"
                     android:singleLine="true"
                     android:layout_height="wrap_content"
                     android:background="@drawable/mybutton"
