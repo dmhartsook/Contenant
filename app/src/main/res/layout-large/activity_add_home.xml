@@ -46,8 +46,8 @@
             <ImageView
                 android:id="@+id/home_image"
                 android:paddingTop="20dp"
-                android:layout_width="350dp"
-                android:layout_height="350dp"
+                android:layout_width="@dimen/add_image_width"
+                android:layout_height="@dimen/add_image_height"
                 android:src="@drawable/home5"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"

@@ -345,7 +345,7 @@ public class AddRoomActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.room_image);
         if (room.getImage() == null) {
             Picasso.with(this)
-                    .load(R.drawable.sample_house)
+                    .load(R.drawable.sample_room)
                     .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
                             getResources().getDimensionPixelSize(R.dimen.add_image_height))
                     .centerCrop()

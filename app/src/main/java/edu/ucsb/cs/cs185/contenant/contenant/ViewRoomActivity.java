@@ -84,7 +84,7 @@ public class ViewRoomActivity extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.room_image);
         if (room.getImage() == null) {
             Picasso.with(this)
-                    .load(R.drawable.sample_house)
+                    .load(R.drawable.sample_room)
                     .resize(imageView.getWidth(), imageView.getHeight())
                     .centerCrop()
                     .into(imageView);
