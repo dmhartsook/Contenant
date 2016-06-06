@@ -18,6 +18,7 @@ public class ViewRoomActivity extends AppCompatActivity {
 
     private long myHomeId;
     private Room room;
+    private int roomId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,10 +38,15 @@ public class ViewRoomActivity extends AppCompatActivity {
             Log.e("ViewRoom", "No home passed but rooms must be in houses");
         }
 
-        int roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
+        roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
         if (roomId == -1) {
             Log.e("ViewRoom", "Invalid room ID, " + roomId + ", passed. Uh oh");
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
         initializeFields(room);
     }

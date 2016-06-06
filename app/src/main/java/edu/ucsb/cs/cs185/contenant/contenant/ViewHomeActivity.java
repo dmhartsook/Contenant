@@ -26,17 +26,16 @@ public class ViewHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_home);
 
-        house = (House) getIntent().getSerializableExtra(Constants.HOME);
-        if (house == null) {
-            houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
-            if (houseId == -1) {
+        houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
+        if (houseId == -1) { // TODO: make sure this case never gets called and delete
+            house = (House) getIntent().getSerializableExtra(Constants.HOME);
+            if (house == null) {
                 Log.e("View Home Activity", "No house passed!");
+            } else {
+                houseId = house.getId();
             }
+        } else {
             house = HouseStorage.getHouse(houseId);
-        }
-        if (house != null) {
-            houseId = house.getId();
-            initializeFields(house);
         }
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -66,8 +65,9 @@ public class ViewHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        initializeFields(HouseStorage.getHouse(houseId));
         super.onResume();
+        house = HouseStorage.getHouse(houseId);
+        initializeFields(house);
     }
 
     /* Sets all the TextView fields with the values passed in the house. */
