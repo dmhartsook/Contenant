@@ -335,14 +335,14 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             saveHouse();
-            if (openViewHomeOnSave) {
+//            if (openViewHomeOnSave) {
                 Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
                 intent.putExtra(Constants.HOME, house);
                 this.finish();
                 startActivity(intent);
-            } else {
-                finish();
-            }
+//            } else {
+//                finish();
+//            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -361,7 +361,12 @@ public class AddHomeActivity extends AppCompatActivity{
         EditText price = (EditText) findViewById(R.id.edit_price);
         EditText notes = (EditText) findViewById(R.id.edit_home_notes);
 
-        house.setName(name.getText().toString());
+        if (name.getText().toString().isEmpty()) {
+            house.setName("My Home");
+        } else {
+            house.setName(name.getText().toString());
+        }
+
         house.setAddress(address.getText().toString());
         house.setPrice(price.getText().toString());
         house.setNotes(notes.getText().toString());
@@ -379,7 +384,7 @@ public class AddHomeActivity extends AppCompatActivity{
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         House home = (House) savedInstanceState.getSerializable(Constants.HOME);
         initializeFields(home);
-        
+
         super.onRestoreInstanceState(savedInstanceState);
     }
 

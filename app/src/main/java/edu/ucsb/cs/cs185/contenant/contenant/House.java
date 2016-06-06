@@ -3,6 +3,8 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 import android.net.Uri;
 
 import java.io.File;
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;

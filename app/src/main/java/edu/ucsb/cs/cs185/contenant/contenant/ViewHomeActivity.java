@@ -35,7 +35,6 @@ public class ViewHomeActivity extends AppCompatActivity {
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
 
         TextView textView = (TextView) findViewById(R.id.home_title);
-        textView.setText("My Home");
         textView.setTypeface(face);
 
         textView = (TextView) findViewById(R.id.home_address);
