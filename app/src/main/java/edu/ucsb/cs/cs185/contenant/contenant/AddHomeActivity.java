@@ -31,10 +31,12 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -110,7 +112,7 @@ public class AddHomeActivity extends AppCompatActivity{
             }
         });
 
-        Button cameraButton = (Button) findViewById(R.id.camera_button);
+        ImageButton cameraButton = (ImageButton) findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
