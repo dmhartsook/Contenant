@@ -48,7 +48,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
     TextView title_view;
     private Room room;
-    private int myHouseId;
+    private long myHouseId;
     ImageView room_image;
 
     private static final String[] permissions = {Manifest.permission.CAMERA,
@@ -71,7 +71,7 @@ public class AddRoomActivity extends AppCompatActivity {
             initializeFields(room);
             myHouseId = room.getHouseId();
         } else {
-            myHouseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+            myHouseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
             room = new Room(myHouseId);
         }
 

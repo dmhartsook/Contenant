@@ -19,7 +19,7 @@ public class ChooseRoomActivity extends AppCompatActivity {
         setContentView(R.layout.choose_room);
 
         Intent intent = getIntent();
-        final int houseId = intent.getIntExtra(Constants.HOME_ID, -1);
+        final long houseId = intent.getLongExtra(Constants.HOME_ID, -1);
         if (houseId == -1) {
             Log.e("ChooseRoom", "No house ID passed");
         }

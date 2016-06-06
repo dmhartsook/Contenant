@@ -72,7 +72,7 @@ public class AddHomeActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_home);
 
-        int houseId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        long houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
         if (houseId == -1) {
             house = new House();
         } else {
@@ -337,7 +337,7 @@ public class AddHomeActivity extends AppCompatActivity{
             saveHouse();
 //            if (openViewHomeOnSave) {
                 Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
-                intent.putExtra(Constants.HOME, house);
+                intent.putExtra(Constants.HOME_ID, house.getId());
                 this.finish();
                 startActivity(intent);
 //            } else {

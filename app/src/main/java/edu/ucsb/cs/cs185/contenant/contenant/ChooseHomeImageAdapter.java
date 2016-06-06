@@ -27,7 +27,9 @@ public class ChooseHomeImageAdapter extends BaseAdapter {
         Collections.sort(houses, new Comparator<House>() {
             @Override
             public int compare(House lhs, House rhs) {
-                return Double.compare(lhs.getId(), rhs.getId());
+                Long lhsId = lhs.getId();
+                Long rhsId = rhs.getId();
+                return lhsId.compareTo(rhsId);
             }
         });
     }

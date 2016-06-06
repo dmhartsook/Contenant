@@ -27,8 +27,13 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         house = (House) getIntent().getSerializableExtra(Constants.HOME);
         if (house == null) {
-            Log.e("View Home Activity", "No house passed!");
-        } else {
+            long houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
+            if (houseId == -1) {
+                Log.e("View Home Activity", "No house passed!");
+            }
+            house = HouseStorage.getHouse(houseId);
+        }
+        if (house != null) {
             initializeFields(house);
         }
 

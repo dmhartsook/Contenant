@@ -21,7 +21,7 @@ public class ChooseRoomImageAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private ArrayList<Room> rooms;
 
-    public ChooseRoomImageAdapter(Context c, int house_id) {
+    public ChooseRoomImageAdapter(Context c, long house_id) {
         context = c;
         layoutInflater = LayoutInflater.from(c);
 

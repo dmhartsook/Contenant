@@ -9,7 +9,7 @@ import java.util.HashMap;
  * A storage class for houses. Should interact with a database.
  */
 public class HouseStorage {
-    private static HashMap<Integer, House> housesHashMap = new HashMap<>();
+    private static HashMap<Long, House> housesHashMap = new HashMap<>();
 
     private HouseStorage() {
     }
@@ -19,11 +19,11 @@ public class HouseStorage {
         housesHashMap.put(house.getId(), house);
     }
 
-    public static House getHouse(int houseId) {
+    public static House getHouse(long houseId) {
         return housesHashMap.get(houseId);
     }
 
-    public static void addRoomToHouse(Room room, int myHouseId) {
+    public static void addRoomToHouse(Room room, long myHouseId) {
         House house = housesHashMap.get(myHouseId);
         if (house != null) {
             house.addRoom(room);

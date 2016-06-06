@@ -1,22 +1,20 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
-import android.net.Uri;
-
 import java.io.File;
-import android.util.Log;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Deanna on 6/2/16.
  */
 public class House implements Serializable {
-    private static AtomicInteger nextId = new AtomicInteger();
+    private static AtomicLong nextId = new AtomicLong();
 
-    private int id;
+    private long id;
     private String name;
     private String address;
     private String price;
@@ -61,7 +59,7 @@ public class House implements Serializable {
         rooms.put(room.getId(), room);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

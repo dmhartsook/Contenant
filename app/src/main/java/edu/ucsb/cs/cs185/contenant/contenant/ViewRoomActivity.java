@@ -16,7 +16,7 @@ import android.widget.TextView;
  */
 public class ViewRoomActivity extends AppCompatActivity {
 
-    private int myHomeId;
+    private long myHomeId;
     private Room room;
 
     @Override
@@ -32,7 +32,7 @@ public class ViewRoomActivity extends AppCompatActivity {
         title_view = (TextView) findViewById(R.id.room_notes);
         title_view.setTypeface(face);
 
-        myHomeId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        myHomeId = getIntent().getLongExtra(Constants.HOME_ID, -1);
         if (myHomeId == -1) {
             Log.e("ViewRoom", "No home passed but rooms must be in houses");
         }
