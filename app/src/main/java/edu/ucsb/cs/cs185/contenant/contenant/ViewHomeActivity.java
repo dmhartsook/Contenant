@@ -29,7 +29,7 @@ public class ViewHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_home);
 
         houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
-        if (houseId == -1) { // TODO: make sure this case never gets called and delete
+        if (houseId == -1) {
             Log.e("View Home Activity", "No house passed!");
         }
 

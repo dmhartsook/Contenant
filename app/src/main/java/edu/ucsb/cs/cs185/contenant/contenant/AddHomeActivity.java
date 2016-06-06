@@ -391,7 +391,7 @@ public class AddHomeActivity extends AppCompatActivity{
         house.setPrice(price.getText().toString());
         house.setNotes(notes.getText().toString());
     }
-    
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -413,6 +413,21 @@ public class AddHomeActivity extends AppCompatActivity{
                 }
 
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        updateHouse();
+        outState.putSerializable(Constants.HOME, house);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        house = (House) savedInstanceState.getSerializable(Constants.HOME);
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
 }
