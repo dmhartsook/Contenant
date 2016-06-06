@@ -22,17 +22,19 @@ public class House implements Serializable {
     private HashMap<Integer, Room> rooms = new HashMap<>();
     private String imagePath;
     private File imageFile;
+    private String image;
 
     public House() {
         this.id = nextId.incrementAndGet();
     }
 
-    public House(String name, String address, String price, String notes) {
+    public House(String name, String address, String price, String notes, String image) {
         this.id = nextId.incrementAndGet();
         this.name = name;
         this.address = address;
         this.price = price;
         this.notes = notes;
+        this.image = image;
     }
 
     public House(int houseId) {
@@ -53,6 +55,10 @@ public class House implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void addRoom(Room room) {
@@ -79,6 +85,10 @@ public class House implements Serializable {
         return notes;
     }
 
+    public String getImage() {
+        return image;
+    }
+
     public Collection<Room> getRooms() {
         return rooms.values();
     }
@@ -102,4 +112,5 @@ public class House implements Serializable {
     public File getImageFile() {
         return imageFile;
     }
+
 }

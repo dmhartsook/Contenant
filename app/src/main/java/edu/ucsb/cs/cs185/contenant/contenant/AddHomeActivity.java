@@ -3,10 +3,12 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,11 +18,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.CursorLoader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,6 +44,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 
 /**
  * Created by Allison on 5/29/2016.
@@ -75,7 +80,8 @@ public class AddHomeActivity extends AppCompatActivity{
         long houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
         if (houseId == -1) {
             house = new House();
-        } else {
+        }
+        else {
             house = HouseStorage.getHouse(houseId);
             initializeFields(house);
         }
@@ -104,6 +110,16 @@ public class AddHomeActivity extends AppCompatActivity{
                 selectImage();
             }
         });
+    }
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+
+//        ImageView img = (ImageView) findViewById(R.id.home_image);
+        initializeFields(house);
+//        Log.d(TAG, "width : " + img.getWidth());
+
     }
 
     /* Sets all the title TextViews to use the font. */
@@ -256,11 +272,16 @@ public class AddHomeActivity extends AppCompatActivity{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ContentResolver contentResolver = getContentResolver();
         if (resultCode == Activity.RESULT_OK) {
             ImageView imageView = (ImageView) findViewById(R.id.home_image);
             if (requestCode == SELECT_FILE) {
+//
+//                String tester = data.getData().toString()
+                house.setImage(data.getData().toString());
+
                 Picasso.with(this)
-                        .load(data.getData())
+                        .load(Uri.parse(house.getImage()))
                         .resize(imageView.getWidth(), imageView.getHeight())
                         .centerCrop()
                         .into(imageView);
@@ -276,10 +297,12 @@ public class AddHomeActivity extends AppCompatActivity{
                         // Auto-generated method stub, nothing to do here.
                     }
                 });
+
+                house.setImage(Uri.fromFile(getImageFile()).toString());
                 house.setImagePath(getImageFile().getAbsolutePath());
                 house.setImageFile(getImageFile());
                 Picasso.with(this)
-                        .load(getImageFile())
+                        .load(Uri.parse(house.getImage()))
                         .resize(imageView.getWidth(), imageView.getHeight())
                         .centerCrop()
                         .into(imageView);
@@ -312,6 +335,15 @@ public class AddHomeActivity extends AppCompatActivity{
         EditText notesView = (EditText) findViewById(R.id.edit_home_notes);
         String notes = home.getNotes();
         notesView.setText(notes);
+
+//        ImageView imageView = (ImageView) findViewById(R.id.home_image);
+//        Log.d("tester", "width = " + imageView.getWidth());
+//        Log.d("tester", "height = " + imageView.getHeight());
+//        Picasso.with(this)
+//                .load(Uri.parse(house.getImage()))
+//                .resize(imageView.getWidth(), imageView.getHeight())
+//                .centerCrop()
+//                .into(imageView);
     }
 
     @Override
@@ -335,14 +367,11 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             saveHouse();
-//            if (openViewHomeOnSave) {
                 Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
                 intent.putExtra(Constants.HOME_ID, house.getId());
                 this.finish();
                 startActivity(intent);
-//            } else {
-//                finish();
-//            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -360,6 +389,7 @@ public class AddHomeActivity extends AppCompatActivity{
         EditText address = (EditText) findViewById(R.id.edit_address);
         EditText price = (EditText) findViewById(R.id.edit_price);
         EditText notes = (EditText) findViewById(R.id.edit_home_notes);
+
 
         if (name.getText().toString().isEmpty()) {
             house.setName("My Home");

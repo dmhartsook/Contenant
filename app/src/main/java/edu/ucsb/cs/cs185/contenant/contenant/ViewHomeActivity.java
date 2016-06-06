@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,9 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 /**
  * Activity for viewing a specific home.
@@ -62,6 +65,16 @@ public class ViewHomeActivity extends AppCompatActivity {
         });
     }
 
+    public void onWindowFocusChanged(boolean hasFocus) {
+        // TODO Auto-generated method stub
+        super.onWindowFocusChanged(hasFocus);
+
+//        ImageView img = (ImageView) findViewById(R.id.home_image);
+        initializeFields(house);
+//        Log.d(TAG, "width : " + img.getWidth());
+
+    }
+
     /* Sets all the TextView fields with the values passed in the house. */
     private void initializeFields(@NonNull House home) {
         TextView textView = (TextView) findViewById(R.id.home_title);
@@ -72,6 +85,13 @@ public class ViewHomeActivity extends AppCompatActivity {
         priceView.setText(home.getPrice());
         TextView notesView = (TextView) findViewById(R.id.notes);
         notesView.setText(home.getNotes());
+
+//        ImageView imageView = (ImageView) findViewById(R.id.home_image);
+//        Picasso.with(this)
+//                .load(Uri.parse(house.getImage()))
+//                .resize(imageView.getWidth(), imageView.getHeight())
+//                .centerCrop()
+//                .into(imageView);
     }
 
     @Override
