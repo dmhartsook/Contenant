@@ -20,8 +20,6 @@ public class House implements Serializable {
     private String price;
     private String notes;
     private HashMap<Integer, Room> rooms = new HashMap<>();
-    private String imagePath;
-    private File imageFile;
     private String image;
 
     public House() {
@@ -95,22 +93,6 @@ public class House implements Serializable {
 
     public Room getRoom(int roomId) {
         return rooms.get(roomId);
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public void setImageFile(File imageFile) {
-        this.imageFile = imageFile;
-    }
-
-    public File getImageFile() {
-        return imageFile;
     }
 
 }

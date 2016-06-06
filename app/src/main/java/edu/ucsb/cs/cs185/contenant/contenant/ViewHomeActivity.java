@@ -112,20 +112,4 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        House house = HouseStorage.getHouse(houseId);
-        outState.putSerializable(Constants.HOME, house);
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        House home = (House) savedInstanceState.getSerializable(Constants.HOME);
-        initializeFields(home);
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
 }

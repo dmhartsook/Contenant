@@ -50,26 +50,22 @@ import java.net.URI;
  * Created by Allison on 5/29/2016.
  */
 public class AddHomeActivity extends AppCompatActivity{
-
-    public static final String IMAGE_NAME = "home_image";
     private enum ImageOption {
         NONE,
         CAMERA,
         GALLERY
     }
-    private ImageOption chosenImageOption = ImageOption.NONE;
-
-    TextView title_view;
-    private House house;
-    ImageView home_image;
-
     private static final String[] permissions = {Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
 
+    public static final String IMAGE_NAME = "home_image";
     private static final int PERMISSIONS_REQUEST = 1;
     private static final int IMAGE_CAPTURE_REQUEST_CODE = 2;
     private static final int SELECT_FILE = 1;
+
+    private ImageOption chosenImageOption = ImageOption.NONE;
+    private House house;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,12 +78,9 @@ public class AddHomeActivity extends AppCompatActivity{
         }
         else {
             house = HouseStorage.getHouse(houseId);
-//            initializeFields(house);
         }
 
         setTitleFonts();
-
-        home_image = (ImageView) findViewById(R.id.home_image);
 
         FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fab_home_add);
         fabAdd.setOnClickListener(new View.OnClickListener() {
@@ -110,18 +103,14 @@ public class AddHomeActivity extends AppCompatActivity{
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
-        // TODO Auto-generated method stub
         super.onWindowFocusChanged(hasFocus);
 
-//        ImageView img = (ImageView) findViewById(R.id.home_image);
         initializeFields(house);
-//        Log.d(TAG, "width : " + img.getWidth());
-
     }
 
     /* Sets all the title TextViews to use the font. */
     private void setTitleFonts() {
-        title_view=(TextView)findViewById(R.id.home_title);
+        TextView title_view=(TextView)findViewById(R.id.home_title);
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face);
 
@@ -269,7 +258,6 @@ public class AddHomeActivity extends AppCompatActivity{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        ContentResolver contentResolver = getContentResolver();
         if (resultCode == Activity.RESULT_OK) {
             ImageView imageView = (ImageView) findViewById(R.id.home_image);
             if (requestCode == SELECT_FILE) {
@@ -294,8 +282,6 @@ public class AddHomeActivity extends AppCompatActivity{
                 });
 
                 house.setImage(Uri.fromFile(getImageFile()).toString());
-                house.setImagePath(getImageFile().getAbsolutePath());
-                house.setImageFile(getImageFile());
                 Picasso.with(this)
                         .load(Uri.parse(house.getImage()))
                         .resize(imageView.getWidth(), imageView.getHeight())
@@ -405,22 +391,7 @@ public class AddHomeActivity extends AppCompatActivity{
         house.setPrice(price.getText().toString());
         house.setNotes(notes.getText().toString());
     }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        updateHouse();
-        outState.putSerializable(Constants.HOME, house);
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        House home = (House) savedInstanceState.getSerializable(Constants.HOME);
-        initializeFields(home);
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
+    
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
