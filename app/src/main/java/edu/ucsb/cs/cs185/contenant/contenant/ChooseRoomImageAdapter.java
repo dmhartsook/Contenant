@@ -1,6 +1,7 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,7 +62,26 @@ public class ChooseRoomImageAdapter extends BaseAdapter {
         }
 
         ImageView imageView = (ImageView) grid.findViewById(R.id.room_image);
-        imageView.setImageResource(R.drawable.sample_room);
+        Room room = getItem(position);
+        if (room.getImage() == null) {
+            Picasso.with(context)
+                    .load(R.drawable.sample_room)
+                    .resize(context.getResources().getDimensionPixelSize(R.dimen.choose_image_width),
+                            context.getResources().getDimensionPixelSize(R.dimen.choose_image_height))
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.with(context)
+                    .load(Uri.parse(room.getImage()))
+                    .resize(context.getResources().getDimensionPixelSize(R.dimen.choose_image_width),
+                            context.getResources().getDimensionPixelSize(R.dimen.choose_image_height))
+                    .centerCrop()
+                    .placeholder(R.drawable.sample_room)
+                    .error(R.drawable.sample_room)
+                    .into(imageView);
+        }
+
+
         TextView textView = (TextView) grid.findViewById(R.id.text);
         String[] roomTypes = context.getResources().getStringArray(R.array.room_array);
         textView.setText(roomTypes[getItem(position).getTypeIndex()]);
