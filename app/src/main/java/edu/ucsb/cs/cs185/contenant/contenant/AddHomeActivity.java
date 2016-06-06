@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,17 +36,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
  * Created by Allison on 5/29/2016.
  */
 public class AddHomeActivity extends AppCompatActivity{
+
+    public static final String IMAGE_NAME = "home_image";
+    private enum ImageOption {
+        NONE,
+        CAMERA,
+        GALLERY
+    }
+    private ImageOption chosenImageOption = ImageOption.NONE;
 
     TextView title_view;
     private House house;
@@ -58,8 +65,6 @@ public class AddHomeActivity extends AppCompatActivity{
     private static final int PERMISSIONS_REQUEST = 1;
     private static final int IMAGE_CAPTURE_REQUEST_CODE = 2;
     private static final int SELECT_FILE = 1;
-    private static final int REQUEST_CAMERA = 0;
-    private String userChosenTask;
     private boolean openViewHomeOnSave;
 
     @Override
@@ -77,25 +82,7 @@ public class AddHomeActivity extends AppCompatActivity{
 
         openViewHomeOnSave = getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false);
 
-        title_view=(TextView)findViewById(R.id.home_title);
-        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
-        title_view.setTypeface(face);
-
-        title_view=(TextView)findViewById(R.id.home_address);
-        Typeface face2= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
-        title_view.setTypeface(face2);
-
-        title_view=(TextView)findViewById(R.id.home_price);
-        Typeface face3= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
-        title_view.setTypeface(face3);
-
-        title_view=(TextView)findViewById(R.id.home_notes);
-        Typeface face4= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
-        title_view.setTypeface(face4);
-
-        title_view=(TextView)findViewById(R.id.home_name);
-        Typeface face5= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
-        title_view.setTypeface(face5);
+        setTitleFonts();
 
         home_image = (ImageView) findViewById(R.id.home_image);
 
@@ -119,6 +106,29 @@ public class AddHomeActivity extends AppCompatActivity{
         });
     }
 
+    /* Sets all the title TextViews to use the font. */
+    private void setTitleFonts() {
+        title_view=(TextView)findViewById(R.id.home_title);
+        Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face);
+
+        title_view=(TextView)findViewById(R.id.home_address);
+        Typeface face2= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face2);
+
+        title_view=(TextView)findViewById(R.id.home_price);
+        Typeface face3= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face3);
+
+        title_view=(TextView)findViewById(R.id.home_notes);
+        Typeface face4= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face4);
+
+        title_view=(TextView)findViewById(R.id.home_name);
+        Typeface face5= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        title_view.setTypeface(face5);
+    }
+
     private void selectImage() {
 
         final Dialog dialog = new Dialog(AddHomeActivity.this);
@@ -131,48 +141,57 @@ public class AddHomeActivity extends AppCompatActivity{
         title_view.setText(R.string.add_photo);
         title_view.setTypeface(face);
 
-        Button mButton2 = (Button) dialog.findViewById(R.id.frag_details1);
-        mButton2.setText(R.string.take_photo);
+        Button cameraButton = (Button) dialog.findViewById(R.id.frag_details1);
+        cameraButton.setText(R.string.take_photo);
 
-        Button mButton3 = (Button) dialog.findViewById(R.id.frag_details2);
-        mButton3.setText(R.string.gal_photo);
+        Button galleryButton = (Button) dialog.findViewById(R.id.frag_details2);
+        galleryButton.setText(R.string.gal_photo);
 
         Button mButton = (Button) dialog.findViewById(R.id.ok);
         mButton.setText(R.string.cancel);
 
-        if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED) {
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chosenImageOption = ImageOption.CAMERA;
+                if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                ActivityCompat.requestPermissions(AddHomeActivity.this,
-                        permissions,
-                        PERMISSIONS_REQUEST);
-            }
-        } else {
-            mButton2.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
+                        ActivityCompat.requestPermissions(AddHomeActivity.this,
+                                permissions,
+                                PERMISSIONS_REQUEST);
+                } else {
                     openCamera();
-                    dialog.dismiss();
                 }
-            });
-            mButton3.setOnClickListener(new View.OnClickListener() {
+                dialog.dismiss();
+            }
+        });
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chosenImageOption = ImageOption.GALLERY;
+                if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                @Override
-                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(AddHomeActivity.this,
+                            permissions,
+                            PERMISSIONS_REQUEST);
+                } else {
                     openGallery();
-                    dialog.dismiss();
                 }
-            });
-            mButton.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-        }
+                dialog.dismiss();
+            }
+        });
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialog.show();
     }
 
@@ -180,22 +199,50 @@ public class AddHomeActivity extends AppCompatActivity{
         File image = null;
         String filename;
 
-        File imageFolder = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imageFolder = getImageStorageFolder();
+        if (! imageFolder.exists()){
+            if (! imageFolder.mkdirs()){
+                Log.e("AddHomeActivity", "failed to create directory");
+                return;
+            }
+        }
 
-        filename = "home_image001.jpg";
-
-        imageFolder.mkdirs();
+        filename = getImageFilename();
+        image = new File(imageFolder, filename);
+        if (image.exists()) {
+            image.delete();
+        }
         try {
-            image = new File(imageFolder, filename);
             image.createNewFile();
         } catch (IOException e) {
+            Log.e("AddHome", "Failed to create new file.");
             e.printStackTrace();
         }
 
-
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(image));
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_REQUEST_CODE);
+    }
+
+    @NonNull
+    private File getImageStorageFolder() {
+        return new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                getResources().getString(R.string.app_name));
+    }
+
+    @NonNull
+    private String getImageFilename() {
+        return IMAGE_NAME + house.getId() + ".jpg";
+    }
+
+    private File getImageFile() {
+        File imageFolder = getImageStorageFolder();
+        if (! imageFolder.exists()){
+            Log.e("AddHomeActivity", "Image folder isn't created...");
+        }
+        String filename = getImageFilename();
+        return new File(imageFolder, filename);
     }
 
     private void openGallery()
@@ -206,55 +253,42 @@ public class AddHomeActivity extends AppCompatActivity{
         startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
     }
 
-    @SuppressWarnings("deprecation")
-    private void onSelectFromGalleryResult(Intent data) {
-        Bitmap bm=null;
-        if (data != null) {
-            try {
-                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        home_image.setImageBitmap(bm);
-    }
-
-    private void onCaptureImageResult(Intent data) {
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        home_image.setImageBitmap(thumbnail);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
-                onSelectFromGalleryResult(data);
-            else if (requestCode == IMAGE_CAPTURE_REQUEST_CODE) {
-                if (data == null) {
-                    Log.d("AddHome", "Null data");
-                } else {
-                    Log.d("AddHome", "Not null data");
-                }
-                onCaptureImageResult(data);
+            ImageView imageView = (ImageView) findViewById(R.id.home_image);
+            if (requestCode == SELECT_FILE) {
+                Picasso.with(this)
+                        .load(data.getData())
+                        .resize(imageView.getWidth(), imageView.getHeight())
+                        .centerCrop()
+                        .into(imageView);
             }
+            else if (requestCode == IMAGE_CAPTURE_REQUEST_CODE) {
+                // Trigger media scanner, so that the new file will show up in the gallery the next time it's opened:
+                MediaScannerConnection.scanFile(getApplicationContext(),
+                        new String[] {getImageFile().getAbsolutePath()},
+                        null,
+                        new MediaScannerConnection.OnScanCompletedListener() {
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        // Auto-generated method stub, nothing to do here.
+                    }
+                });
+                house.setImagePath(getImageFile().getAbsolutePath());
+                house.setImageFile(getImageFile());
+                Picasso.with(this)
+                        .load(getImageFile())
+                        .resize(imageView.getWidth(), imageView.getHeight())
+                        .centerCrop()
+                        .into(imageView);
+            }
+        } else {
+            Log.d("AddHome", "not okay result");
         }
     }
+
 
     /*
      * Sets all the EditView fields with the values in the home.
@@ -353,24 +387,17 @@ public class AddHomeActivity extends AppCompatActivity{
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST) { // camera, read/write external
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if(userChosenTask.equals("Take Photo"))
+                    if(chosenImageOption == ImageOption.CAMERA)
                         openCamera();
-                    else if(userChosenTask.equals("Choose from Library"))
+                    else if(chosenImageOption == ImageOption.GALLERY)
                         openGallery();
                 } else {
                     // Permission denied so exit
                     new AlertDialog.Builder(this)
                             .setTitle("Need Permission")
-                            .setMessage("We don't have the necessary permissions.")
-                            .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            .setMessage("We don't have the necessary permissions to choose a photo.")
+                            .setPositiveButton("Okay.", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {}
-                            })
-                            .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    finish();
-                                    System.exit(-1);
-                                }
                             })
                             .show();
                 }

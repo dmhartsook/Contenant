@@ -1,5 +1,8 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
+import android.net.Uri;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -17,6 +20,8 @@ public class House implements Serializable {
     private String price;
     private String notes;
     private HashMap<Integer, Room> rooms = new HashMap<>();
+    private String imagePath;
+    private File imageFile;
 
     public House() {
         this.id = nextId.incrementAndGet();
@@ -80,5 +85,21 @@ public class House implements Serializable {
 
     public Room getRoom(int roomId) {
         return rooms.get(roomId);
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setImageFile(File imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public File getImageFile() {
+        return imageFile;
     }
 }
