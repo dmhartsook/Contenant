@@ -70,7 +70,6 @@ public class AddHomeActivity extends AppCompatActivity{
     private static final int PERMISSIONS_REQUEST = 1;
     private static final int IMAGE_CAPTURE_REQUEST_CODE = 2;
     private static final int SELECT_FILE = 1;
-    private boolean openViewHomeOnSave;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,8 +84,6 @@ public class AddHomeActivity extends AppCompatActivity{
             house = HouseStorage.getHouse(houseId);
             initializeFields(house);
         }
-
-        openViewHomeOnSave = getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false);
 
         setTitleFonts();
 
@@ -367,11 +364,14 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             saveHouse();
+            if (getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false)) {
                 Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
                 intent.putExtra(Constants.HOME_ID, house.getId());
-                this.finish();
+                finish();
                 startActivity(intent);
-
+            } else {
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);

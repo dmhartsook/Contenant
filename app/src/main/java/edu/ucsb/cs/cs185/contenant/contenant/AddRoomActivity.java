@@ -252,16 +252,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
         if (id == R.id.save) {
             saveRoom();
-            if (getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false)) {
-                Intent intent = new Intent(AddRoomActivity.this, ViewRoomActivity.class);
-                intent.putExtra(Constants.HOME_ID, room.getHouseId());
-                long roomId = (long) room.getId();
-                intent.putExtra(Constants.ROOM_ID, roomId);
-                finish();
-                startActivity(intent);
-            } else {
-                finish();
-            }
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

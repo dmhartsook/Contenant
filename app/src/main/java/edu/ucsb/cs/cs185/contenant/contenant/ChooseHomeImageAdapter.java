@@ -57,7 +57,7 @@ public class ChooseHomeImageAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) grid.findViewById(R.id.home_image);
         imageView.setImageResource(R.drawable.sample_house);
         TextView textView = (TextView) grid.findViewById(R.id.text);
-        textView.setText("Home " + String.valueOf(position));
+        textView.setText(getItem(position).getName());
 
         return grid;
     }

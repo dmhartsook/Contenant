@@ -15,9 +15,8 @@ import android.widget.TextView;
  * Activity for viewing a specific room.
  */
 public class ViewRoomActivity extends AppCompatActivity {
-
     private long myHomeId;
-    private Room room;
+    private int roomId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,11 +36,16 @@ public class ViewRoomActivity extends AppCompatActivity {
             Log.e("ViewRoom", "No home passed but rooms must be in houses");
         }
 
-        int roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
+        roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
         if (roomId == -1) {
             Log.e("ViewRoom", "Invalid room ID, " + roomId + ", passed. Uh oh");
         }
-        room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Room room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
         initializeFields(room);
     }
 
@@ -57,8 +61,8 @@ public class ViewRoomActivity extends AppCompatActivity {
 
         if (id == R.id.edit) {
             Intent intent = new Intent(ViewRoomActivity.this, AddRoomActivity.class);
+            Room room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
             intent.putExtra(Constants.ROOM, room);
-            intent.putExtra(Constants.OPEN_VIEW_ON_SAVE, true);
             startActivity(intent);
         }
 
@@ -67,6 +71,7 @@ public class ViewRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        Room room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
         outState.putSerializable(Constants.ROOM, room);
 
         super.onSaveInstanceState(outState);
@@ -74,6 +79,7 @@ public class ViewRoomActivity extends AppCompatActivity {
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Room room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
         room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
         initializeFields(room);
 

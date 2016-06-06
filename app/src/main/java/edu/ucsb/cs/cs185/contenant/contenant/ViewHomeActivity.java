@@ -21,23 +21,16 @@ import com.squareup.picasso.Picasso;
  * Activity for viewing a specific home.
  */
 public class ViewHomeActivity extends AppCompatActivity {
-    private House house;
+    private long houseId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_home);
 
-        house = (House) getIntent().getSerializableExtra(Constants.HOME);
-        if (house == null) {
-            long houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
-            if (houseId == -1) {
-                Log.e("View Home Activity", "No house passed!");
-            }
-            house = HouseStorage.getHouse(houseId);
-        }
-        if (house != null) {
-            initializeFields(house);
+        houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
+        if (houseId == -1) { // TODO: make sure this case never gets called and delete
+            Log.e("View Home Activity", "No house passed!");
         }
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -59,7 +52,7 @@ public class ViewHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewHomeActivity.this, ChooseRoomActivity.class);
-                intent.putExtra(Constants.HOME_ID, house.getId());
+                intent.putExtra(Constants.HOME_ID, houseId);
                 startActivity(intent);
             }
         });
@@ -70,9 +63,16 @@ public class ViewHomeActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
 
 //        ImageView img = (ImageView) findViewById(R.id.home_image);
+        House house = HouseStorage.getHouse(houseId);
         initializeFields(house);
 //        Log.d(TAG, "width : " + img.getWidth());
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        House house = HouseStorage.getHouse(houseId);
+        initializeFields(house);
     }
 
     /* Sets all the TextView fields with the values passed in the house. */
@@ -106,7 +106,7 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         if (id == R.id.edit) {
             Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
-            intent.putExtra(Constants.HOME_ID, house.getId());
+            intent.putExtra(Constants.HOME_ID, houseId);
             startActivity(intent);
         }
 
@@ -115,6 +115,7 @@ public class ViewHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        House house = HouseStorage.getHouse(houseId);
         outState.putSerializable(Constants.HOME, house);
 
         super.onSaveInstanceState(outState);
