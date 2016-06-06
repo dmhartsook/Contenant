@@ -18,7 +18,6 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
  * Activity for viewing a specific home.
  */
 public class ViewHomeActivity extends AppCompatActivity {
-    private House house;
     private long houseId;
 
     @Override
@@ -28,14 +27,7 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
         if (houseId == -1) { // TODO: make sure this case never gets called and delete
-            house = (House) getIntent().getSerializableExtra(Constants.HOME);
-            if (house == null) {
-                Log.e("View Home Activity", "No house passed!");
-            } else {
-                houseId = house.getId();
-            }
-        } else {
-            house = HouseStorage.getHouse(houseId);
+            Log.e("View Home Activity", "No house passed!");
         }
 
         Typeface face= Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
@@ -57,7 +49,7 @@ public class ViewHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ViewHomeActivity.this, ChooseRoomActivity.class);
-                intent.putExtra(Constants.HOME_ID, house.getId());
+                intent.putExtra(Constants.HOME_ID, houseId);
                 startActivity(intent);
             }
         });
@@ -66,7 +58,7 @@ public class ViewHomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        house = HouseStorage.getHouse(houseId);
+        House house = HouseStorage.getHouse(houseId);
         initializeFields(house);
     }
 
@@ -94,7 +86,7 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         if (id == R.id.edit) {
             Intent intent = new Intent(ViewHomeActivity.this, AddHomeActivity.class);
-            intent.putExtra(Constants.HOME_ID, house.getId());
+            intent.putExtra(Constants.HOME_ID, houseId);
             startActivity(intent);
         }
 
@@ -103,6 +95,7 @@ public class ViewHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        House house = HouseStorage.getHouse(houseId);
         outState.putSerializable(Constants.HOME, house);
 
         super.onSaveInstanceState(outState);
