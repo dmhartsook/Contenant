@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/tools"
     android:layout_gravity="center_horizontal"
     android:paddingTop="20dp"
     android:paddingBottom="20dp">
@@ -15,9 +14,8 @@
         android:layout_gravity="center_horizontal">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <me.grantland.widget.AutofitTextView
                 android:layout_width="wrap_content"
@@ -29,62 +27,47 @@
                 android:textSize="30sp"
                 android:layout_gravity="center_horizontal"
                 />
-            <!--<Button-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:padding="10dp"-->
-                <!--android:textSize="14sp"-->
-                <!--android:id="@+id/camera_button"-->
-                <!--android:clickable="true"-->
-                <!--android:singleLine="true"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@drawable/mybutton"-->
-                <!--android:textColor="@android:color/white"-->
-                <!--android:layout_below="@+id/home_title"-->
-                <!--android:text="@string/add_pic"-->
-                <!--android:layout_gravity="center_horizontal"/>-->
+
+            <RelativeLayout android:layout_width="175dp"
+                android:layout_height="175dp"
+                android:layout_gravity="center_horizontal">
 
 
+                <ImageView
+                    android:id="@+id/home_image"
+                    android:paddingTop="20dp"
+                    android:layout_width="175dp"
+                    android:layout_height="175dp"
+                    android:src="@drawable/sample_house"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_gravity="center_horizontal"/>
 
-            <ImageView
-                android:id="@+id/home_image"
-                android:paddingTop="0dp"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/home5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="center_horizontal"/>
 
+                <ImageView
+                    android:id="@+id/camera_button"
+                    android:clickable="true"
+                    android:layout_width="35dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/camera"
+                    android:background="#80FFFFFF"
+                    />
 
-            <ImageButton
-                android:layout_width="60dp"
-                android:layout_height="50dp"
-                android:padding="20dp"
-                android:textSize="14sp"
-                android:id="@+id/camera_button"
-                android:clickable="true"
-                android:text="@string/add_pic"
-                android:src="@drawable/camera_icon"
-                android:elevation="0dp"
-                android:backgroundTint="@color/white"
-                android:layout_marginRight="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_alignBottom="@+id/placeholder"
-                android:layout_alignRight="@+id/edit_name"
-                android:layout_alignEnd="@+id/edit_name"
-                android:layout_gravity="right" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/details">
-
-
+                android:layout_height="wrap_content">
 
                 <me.grantland.widget.AutofitTextView
                     android:paddingLeft="20dp"
-                    android:paddingTop="30dp"
+                    android:paddingTop="50dp"
                     android:id="@+id/home_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +80,7 @@
                 <EditText
                     android:layout_marginRight="20dp"
                     android:layout_marginLeft="10dp"
-                    android:paddingTop="30dp"
+                    android:paddingTop="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/edit_name"
@@ -191,7 +174,6 @@
                     android:id="@+id/placeholder"
                     android:layout_width="550dp"
                     android:layout_height="wrap_content" />
-
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
@@ -220,6 +202,4 @@
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     </LinearLayout>
-
-
 </RelativeLayout>

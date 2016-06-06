@@ -10,17 +10,18 @@ public class Room implements Serializable {
     private static AtomicInteger nextId = new AtomicInteger();
 
     private final int id;
-    private final int houseId;
+    private final long houseId;
     private String notes;
     private int typeIndex; // The index in the room_array
+    private String image;
 
-    public Room(int houseId, String notes) {
+    public Room(long houseId, String notes) {
         this.id = nextId.incrementAndGet();
         this.houseId = houseId;
         this.notes = notes;
     }
 
-    public Room(int houseId) {
+    public Room(long houseId) {
         this.id = nextId.incrementAndGet();
         this.houseId = houseId;
     }
@@ -37,7 +38,7 @@ public class Room implements Serializable {
         this.notes = notes;
     }
 
-    public int getHouseId() {
+    public long getHouseId() {
         return houseId;
     }
 
@@ -47,5 +48,13 @@ public class Room implements Serializable {
 
     public void setTypeIndex(int typeIndex) {
         this.typeIndex = typeIndex;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

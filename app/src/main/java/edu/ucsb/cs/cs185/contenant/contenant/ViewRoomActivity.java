@@ -2,6 +2,7 @@ package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,15 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * Activity for viewing a specific room.
  */
 public class ViewRoomActivity extends AppCompatActivity {
-
-    private int myHomeId;
-    private Room room;
+    private long myHomeId;
+    private int roomId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,17 +35,21 @@ public class ViewRoomActivity extends AppCompatActivity {
         title_view = (TextView) findViewById(R.id.room_notes);
         title_view.setTypeface(face);
 
-        myHomeId = getIntent().getIntExtra(Constants.HOME_ID, -1);
+        myHomeId = getIntent().getLongExtra(Constants.HOME_ID, -1);
         if (myHomeId == -1) {
             Log.e("ViewRoom", "No home passed but rooms must be in houses");
         }
 
-        int roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
+        roomId = (int) getIntent().getLongExtra(Constants.ROOM_ID, -1);
         if (roomId == -1) {
             Log.e("ViewRoom", "Invalid room ID, " + roomId + ", passed. Uh oh");
         }
-        room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
-        initializeFields(room);
+    }
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        initializeFields();
     }
 
     @Override
@@ -57,35 +64,36 @@ public class ViewRoomActivity extends AppCompatActivity {
 
         if (id == R.id.edit) {
             Intent intent = new Intent(ViewRoomActivity.this, AddRoomActivity.class);
+            Room room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
             intent.putExtra(Constants.ROOM, room);
-            intent.putExtra(Constants.OPEN_VIEW_ON_SAVE, true);
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable(Constants.ROOM, room);
-
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
-        initializeFields(room);
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
     /* Fills in the fields with the values in the room. */
-    private void initializeFields(@NonNull Room room) {
+    private void initializeFields() {
+        Room room = HouseStorage.getHouse(myHomeId).getRoom(roomId);
         TextView notes = (TextView) findViewById(R.id.notes);
         notes.setText(room.getNotes());
         String[] roomTypes = getResources().getStringArray(R.array.room_array);
         TextView titleView = (TextView)findViewById(R.id.room_title);
         titleView.setText(roomTypes[room.getTypeIndex()]);
+
+        ImageView imageView = (ImageView) findViewById(R.id.room_image);
+        if (room.getImage() == null) {
+            Picasso.with(this)
+                    .load(R.drawable.sample_room)
+                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.with(this)
+                    .load(Uri.parse(room.getImage()))
+                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .centerCrop()
+                    .into(imageView);
+        }
     }
 }

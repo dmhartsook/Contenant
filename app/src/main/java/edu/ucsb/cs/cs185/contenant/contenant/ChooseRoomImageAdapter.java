@@ -21,7 +21,7 @@ public class ChooseRoomImageAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private ArrayList<Room> rooms;
 
-    public ChooseRoomImageAdapter(Context c, int house_id) {
+    public ChooseRoomImageAdapter(Context c, long house_id) {
         context = c;
         layoutInflater = LayoutInflater.from(c);
 
@@ -61,7 +61,8 @@ public class ChooseRoomImageAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) grid.findViewById(R.id.room_image);
         imageView.setImageResource(R.drawable.sample_room);
         TextView textView = (TextView) grid.findViewById(R.id.text);
-        textView.setText("Room " + String.valueOf(position));
+        String[] roomTypes = context.getResources().getStringArray(R.array.room_array);
+        textView.setText(roomTypes[getItem(position).getTypeIndex()]);
 
         return grid;
     }

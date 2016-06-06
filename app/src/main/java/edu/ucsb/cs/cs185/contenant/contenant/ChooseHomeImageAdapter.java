@@ -1,12 +1,16 @@
 package edu.ucsb.cs.cs185.contenant.contenant;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +31,9 @@ public class ChooseHomeImageAdapter extends BaseAdapter {
         Collections.sort(houses, new Comparator<House>() {
             @Override
             public int compare(House lhs, House rhs) {
-                return Double.compare(lhs.getId(), rhs.getId());
+                Long lhsId = lhs.getId();
+                Long rhsId = rhs.getId();
+                return lhsId.compareTo(rhsId);
             }
         });
     }
@@ -53,9 +59,26 @@ public class ChooseHomeImageAdapter extends BaseAdapter {
         }
 
         ImageView imageView = (ImageView) grid.findViewById(R.id.home_image);
-        imageView.setImageResource(R.drawable.sample_house);
+        House home = getItem(position);
+        if (home.getImage() == null) {
+            Picasso.with(context)
+                    .load(R.drawable.sample_house)
+                    .resize(context.getResources().getDimensionPixelSize(R.dimen.choose_image_width),
+                            context.getResources().getDimensionPixelSize(R.dimen.choose_image_height))
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.with(context)
+                    .load(Uri.parse(home.getImage()))
+                    .resize(context.getResources().getDimensionPixelSize(R.dimen.choose_image_width),
+                            context.getResources().getDimensionPixelSize(R.dimen.choose_image_height))
+                    .centerCrop()
+                    .placeholder(R.drawable.sample_house)
+                    .error(R.drawable.sample_house)
+                    .into(imageView);
+        }
         TextView textView = (TextView) grid.findViewById(R.id.text);
-        textView.setText("Home " + String.valueOf(position));
+        textView.setText(getItem(position).getName());
 
         return grid;
     }
