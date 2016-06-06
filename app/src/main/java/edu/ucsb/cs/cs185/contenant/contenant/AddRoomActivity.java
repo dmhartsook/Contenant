@@ -93,7 +93,8 @@ public class AddRoomActivity extends AppCompatActivity {
         Typeface face3 = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face3);
 
-        Button cameraButton = (Button) findViewById(R.id.camera_button);
+
+        ImageView cameraButton = (ImageView) findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
