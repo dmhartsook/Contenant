@@ -261,10 +261,10 @@ public class AddHomeActivity extends AppCompatActivity{
         if (resultCode == Activity.RESULT_OK) {
             ImageView imageView = (ImageView) findViewById(R.id.home_image);
             if (requestCode == SELECT_FILE) {
-
                 house.setImage(data.getData().toString());
                 Picasso.with(this)
                         .load(Uri.parse(house.getImage()))
+                        .placeholder(R.drawable.sample_house)
                         .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
                                 getResources().getDimensionPixelSize(R.dimen.add_image_height))
                         .centerCrop()
@@ -285,6 +285,7 @@ public class AddHomeActivity extends AppCompatActivity{
                 house.setImage(Uri.fromFile(getImageFile()).toString());
                 Picasso.with(this)
                         .load(Uri.parse(house.getImage()))
+                        .placeholder(R.drawable.sample_house)
                         .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
                                 getResources().getDimensionPixelSize(R.dimen.add_image_height))
                         .centerCrop()
@@ -329,7 +330,7 @@ public class AddHomeActivity extends AppCompatActivity{
                     .into(imageView);
         } else {
             Picasso.with(this)
-                    .load(Uri.parse(house.getImage()))
+                    .load(Uri.parse(home.getImage()))
                     .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
                             getResources().getDimensionPixelSize(R.dimen.add_image_height))
                     .centerCrop()

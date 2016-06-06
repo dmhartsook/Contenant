@@ -81,6 +81,7 @@ public class ViewHomeActivity extends AppCompatActivity {
         if (home.getImage() == null) {
             Picasso.with(this)
                     .load(R.drawable.sample_house)
+                    .placeholder(R.drawable.sample_house)
                     .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
                             getResources().getDimensionPixelSize(R.dimen.add_image_height))
                     .centerCrop()
@@ -89,6 +90,7 @@ public class ViewHomeActivity extends AppCompatActivity {
             House house = HouseStorage.getHouse(houseId);
             Picasso.with(this)
                     .load(Uri.parse(house.getImage()))
+                    .placeholder(R.drawable.sample_house)
                     .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
                             getResources().getDimensionPixelSize(R.dimen.add_image_height))
                     .centerCrop()
