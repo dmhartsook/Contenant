@@ -28,30 +28,39 @@
                 android:layout_gravity="center_horizontal"
                 />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_marginTop="20dp"
-                android:padding="10dp"
-                android:textSize="30sp"
-                android:id="@+id/camera_button"
-                android:clickable="true"
-                android:singleLine="true"
-                android:layout_height="wrap_content"
-                android:background="@drawable/mybutton"
-                android:textColor="@android:color/white"
-                android:layout_below="@+id/home_title"
-                android:text="@string/add_pic"
-                android:layout_gravity="center_horizontal"/>
 
-            <ImageView
-                android:id="@+id/home_image"
-                android:paddingTop="20dp"
-                android:layout_width="350dp"
+            <RelativeLayout android:layout_width="350dp"
                 android:layout_height="350dp"
-                android:src="@drawable/home5"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal">
+
+
+                <ImageView
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/home_image"
+                    android:paddingTop="20dp"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:src="@drawable/home5"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"/>
+
+
+                <ImageView
+                    android:id="@+id/camera_button"
+                    android:clickable="true"
+                    android:layout_width="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/camera"
+                    android:background="#80FFFFFF"
+                     />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="wrap_content"

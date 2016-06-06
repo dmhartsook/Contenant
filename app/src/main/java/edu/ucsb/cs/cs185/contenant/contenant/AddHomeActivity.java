@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -93,7 +94,7 @@ public class AddHomeActivity extends AppCompatActivity{
             }
         });
 
-        Button cameraButton = (Button) findViewById(R.id.camera_button);
+        ImageView cameraButton = (ImageView) findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

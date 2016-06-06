@@ -89,7 +89,7 @@ public class AddRoomActivity extends AppCompatActivity {
 
         room_image = (ImageView) findViewById(R.id.room_image);
 
-        Button cameraButton = (Button) findViewById(R.id.camera_button);
+        ImageView cameraButton = (ImageView) findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
