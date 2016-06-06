@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,11 +30,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -45,21 +49,24 @@ import java.io.IOException;
  * Created by Allison on 5/29/2016.
  */
 public class AddRoomActivity extends AppCompatActivity {
+    private enum ImageOption {
+        NONE,
+        CAMERA,
+        GALLERY
+    }
 
-    TextView title_view;
     private Room room;
     private long myHouseId;
-    ImageView room_image;
+    private ImageOption chosenImageOption = ImageOption.NONE;
 
     private static final String[] permissions = {Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE};
 
+    public static final String IMAGE_NAME = "room_image";
     private static final int PERMISSIONS_REQUEST = 1;
     private static final int IMAGE_CAPTURE_REQUEST_CODE = 2;
     private static final int SELECT_FILE = 1;
-    private static final int REQUEST_CAMERA = 0;
-    private String userChosenTask;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,14 +75,13 @@ public class AddRoomActivity extends AppCompatActivity {
 
         room = (Room) getIntent().getSerializableExtra(Constants.ROOM);
         if (room != null) {
-            initializeFields(room);
             myHouseId = room.getHouseId();
         } else {
             myHouseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
             room = new Room(myHouseId);
         }
 
-        title_view = (TextView) findViewById(R.id.room_title);
+        TextView title_view = (TextView) findViewById(R.id.room_title);
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face);
 
@@ -87,7 +93,6 @@ public class AddRoomActivity extends AppCompatActivity {
         Typeface face3 = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         title_view.setTypeface(face3);
 
-        room_image = (ImageView) findViewById(R.id.room_image);
 
         ImageView cameraButton = (ImageView) findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(new View.OnClickListener() {
@@ -96,6 +101,22 @@ public class AddRoomActivity extends AppCompatActivity {
                 selectImage();
             }
         });
+
+        initializeFields();
+    }
+
+
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//
+//        initializeFields();
+//    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initializeFields();
     }
 
     private void selectImage() {
@@ -110,50 +131,57 @@ public class AddRoomActivity extends AppCompatActivity {
         title_view.setText(R.string.add_photo);
         title_view.setTypeface(face);
 
-        Button mButton2 = (Button) dialog.findViewById(R.id.frag_details1);
-        mButton2.setText(R.string.take_photo);
+        Button cameraButton = (Button) dialog.findViewById(R.id.frag_details1);
+        cameraButton.setText(R.string.take_photo);
 
-        Button mButton3 = (Button) dialog.findViewById(R.id.frag_details2);
-        mButton3.setText(R.string.gal_photo);
+        Button galleryButton = (Button) dialog.findViewById(R.id.frag_details2);
+        galleryButton.setText(R.string.gal_photo);
 
         Button mButton = (Button) dialog.findViewById(R.id.ok);
         mButton.setText(R.string.cancel);
 
-        if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chosenImageOption = ImageOption.CAMERA;
+                if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                ActivityCompat.requestPermissions(AddRoomActivity.this,
-                        permissions,
-                        PERMISSIONS_REQUEST);
-            }
-        } else {
-            mButton2.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    userChosenTask = "Take Photo";
+                    ActivityCompat.requestPermissions(AddRoomActivity.this,
+                            permissions,
+                            PERMISSIONS_REQUEST);
+                } else {
                     openCamera();
-                    dialog.dismiss();
                 }
-            });
-            mButton3.setOnClickListener(new View.OnClickListener() {
+                dialog.dismiss();
+            }
+        });
+        galleryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chosenImageOption = ImageOption.GALLERY;
+                if (ContextCompat.checkSelfPermission(dialog.getContext(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
-                @Override
-                public void onClick(View v) {
-                    userChosenTask = "Choose from Library";
+                    ActivityCompat.requestPermissions(AddRoomActivity.this,
+                            permissions,
+                            PERMISSIONS_REQUEST);
+                } else {
                     openGallery();
-                    dialog.dismiss();
                 }
-            });
-            mButton.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-        }
+                dialog.dismiss();
+            }
+        });
+        mButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
         dialog.show();
     }
 
@@ -161,11 +189,15 @@ public class AddRoomActivity extends AppCompatActivity {
         File image = null;
         String filename;
 
-        File imageFolder = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File imageFolder = getImageStorageFolder();
+        if (! imageFolder.exists()){
+            if (! imageFolder.mkdirs()){
+                Log.e("AddHomeActivity", "failed to create directory");
+                return;
+            }
+        }
 
-        filename = "home_image001.jpg";
-
-        imageFolder.mkdirs();
+        filename = getImageFilename();
         try {
             image = new File(imageFolder, filename);
             image.createNewFile();
@@ -179,6 +211,27 @@ public class AddRoomActivity extends AppCompatActivity {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_REQUEST_CODE);
     }
 
+    @NonNull
+    private File getImageStorageFolder() {
+        return new File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                getResources().getString(R.string.app_name));
+    }
+
+    @NonNull
+    private String getImageFilename() {
+        return IMAGE_NAME + room.getId() + ".jpg";
+    }
+
+    private File getImageFile() {
+        File imageFolder = getImageStorageFolder();
+        if (! imageFolder.exists()){
+            Log.e("AddHomeActivity", "Image folder isn't created...");
+        }
+        String filename = getImageFilename();
+        return new File(imageFolder, filename);
+    }
+
     private void openGallery()
     {
         Intent intent = new Intent();
@@ -187,47 +240,40 @@ public class AddRoomActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select File"),SELECT_FILE);
     }
 
-    @SuppressWarnings("deprecation")
-    private void onSelectFromGalleryResult(Intent data) {
-        Bitmap bm=null;
-        if (data != null) {
-            try {
-                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        room_image.setImageBitmap(bm);
-    }
-
-    private void onCaptureImageResult(Intent data) {
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
-        FileOutputStream fo;
-        try {
-            destination.createNewFile();
-            fo = new FileOutputStream(destination);
-            fo.write(bytes.toByteArray());
-            fo.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        room_image.setImageBitmap(thumbnail);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE)
-                onSelectFromGalleryResult(data);
-            else if (requestCode == REQUEST_CAMERA)
-                onCaptureImageResult(data);
+            ImageView imageView = (ImageView) findViewById(R.id.room_image);
+            if (requestCode == SELECT_FILE) {
+                room.setImage(data.getData().toString());
+                Picasso.with(this)
+                        .load(Uri.parse(room.getImage()))
+                        .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                                getResources().getDimensionPixelSize(R.dimen.add_image_height))
+                        .centerCrop()
+                        .into(imageView);
+            }
+            else if (requestCode == IMAGE_CAPTURE_REQUEST_CODE) {
+                // Trigger media scanner, so that the new file will show up in the gallery the next time it's opened:
+                MediaScannerConnection.scanFile(getApplicationContext(),
+                        new String[] {getImageFile().getAbsolutePath()},
+                        null,
+                        new MediaScannerConnection.OnScanCompletedListener() {
+                            @Override
+                            public void onScanCompleted(String path, Uri uri) {
+                                // Auto-generated method stub, nothing to do here.
+                            }
+                        });
+
+                room.setImage(Uri.fromFile(getImageFile()).toString());
+                Picasso.with(this)
+                        .load(Uri.parse(room.getImage()))
+                        .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                                getResources().getDimensionPixelSize(R.dimen.add_image_height))
+                        .centerCrop()
+                        .into(imageView);
+            }
         }
     }
 
@@ -271,6 +317,13 @@ public class AddRoomActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
+
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
     /* Updates the fields in this.room with the values in the form. */
     @NonNull
     private void updateRoom() {
@@ -280,49 +333,49 @@ public class AddRoomActivity extends AppCompatActivity {
         room.setTypeIndex(roomTypeDropdown.getSelectedItemPosition());
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        Room room = (Room) savedInstanceState.getSerializable(Constants.ROOM);
-        initializeFields(room);
-
-        super.onRestoreInstanceState(savedInstanceState);
-    }
 
     /*
      * Fills in the fields with the values in the room.
-     * Sets this.room to the passed room
      */
-    private void initializeFields(@NonNull Room room) {
-        this.room = room;
-
+    private void initializeFields() {
         EditText notes = (EditText) findViewById(R.id.edit_room_notes);
         notes.setText(room.getNotes());
         Spinner roomTypeDropdown = (Spinner) findViewById(R.id.spinner1);
         roomTypeDropdown.setSelection(room.getTypeIndex());
+
+        ImageView imageView = (ImageView) findViewById(R.id.room_image);
+        if (room.getImage() == null) {
+            Picasso.with(this)
+                    .load(R.drawable.sample_room)
+                    .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                            getResources().getDimensionPixelSize(R.dimen.add_image_height))
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.with(this)
+                    .load(Uri.parse(room.getImage()))
+                    .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                            getResources().getDimensionPixelSize(R.dimen.add_image_height))
+                    .centerCrop()
+                    .into(imageView);
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST) { // camera, read/write external
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if(userChosenTask.equals("Take Photo"))
+                if(chosenImageOption == ImageOption.CAMERA)
                     openCamera();
-                else if(userChosenTask.equals("Choose from Library"))
+                else if(chosenImageOption == ImageOption.GALLERY)
                     openGallery();
             } else {
                 // Permission denied so exit
                 new AlertDialog.Builder(this)
                         .setTitle("Need Permission")
                         .setMessage("We don't have the necessary permissions.")
-                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {}
-                        })
-                        .setOnDismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                finish();
-                                System.exit(-1);
-                            }
                         })
                         .show();
             }

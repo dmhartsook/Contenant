@@ -266,7 +266,8 @@ public class AddHomeActivity extends AppCompatActivity{
                 house.setImage(data.getData().toString());
                 Picasso.with(this)
                         .load(Uri.parse(house.getImage()))
-                        .resize(imageView.getWidth(), imageView.getHeight())
+                        .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                                getResources().getDimensionPixelSize(R.dimen.add_image_height))
                         .centerCrop()
                         .into(imageView);
             }
@@ -285,7 +286,8 @@ public class AddHomeActivity extends AppCompatActivity{
                 house.setImage(Uri.fromFile(getImageFile()).toString());
                 Picasso.with(this)
                         .load(Uri.parse(house.getImage()))
-                        .resize(imageView.getWidth(), imageView.getHeight())
+                        .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                                getResources().getDimensionPixelSize(R.dimen.add_image_height))
                         .centerCrop()
                         .into(imageView);
             }
@@ -322,13 +324,15 @@ public class AddHomeActivity extends AppCompatActivity{
         if (home.getImage() == null) {
             Picasso.with(this)
                     .load(R.drawable.sample_house)
-                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                            getResources().getDimensionPixelSize(R.dimen.add_image_height))
                     .centerCrop()
                     .into(imageView);
         } else {
             Picasso.with(this)
                     .load(Uri.parse(house.getImage()))
-                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .resize(getResources().getDimensionPixelSize(R.dimen.add_image_width),
+                            getResources().getDimensionPixelSize(R.dimen.add_image_height))
                     .centerCrop()
                     .into(imageView);
         }
@@ -392,7 +396,7 @@ public class AddHomeActivity extends AppCompatActivity{
         house.setPrice(price.getText().toString());
         house.setNotes(notes.getText().toString());
     }
-    
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -414,6 +418,21 @@ public class AddHomeActivity extends AppCompatActivity{
                 }
 
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        updateHouse();
+        outState.putSerializable(Constants.HOME, house);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        house = (House) savedInstanceState.getSerializable(Constants.HOME);
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
 }
