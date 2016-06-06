@@ -39,7 +39,7 @@
                     android:paddingTop="20dp"
                     android:layout_width="350dp"
                     android:layout_height="350dp"
-                    android:src="@drawable/home5"
+                    android:src="@drawable/sample_house"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"/>
 
