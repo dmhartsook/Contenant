@@ -59,21 +59,12 @@ public class ViewHomeActivity extends AppCompatActivity {
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
-        // TODO Auto-generated method stub
         super.onWindowFocusChanged(hasFocus);
 
-//        ImageView img = (ImageView) findViewById(R.id.home_image);
         House house = HouseStorage.getHouse(houseId);
         initializeFields(house);
-//        Log.d(TAG, "width : " + img.getWidth());
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        House house = HouseStorage.getHouse(houseId);
-        initializeFields(house);
-    }
 
     /* Sets all the TextView fields with the values passed in the house. */
     private void initializeFields(@NonNull House home) {
@@ -86,12 +77,21 @@ public class ViewHomeActivity extends AppCompatActivity {
         TextView notesView = (TextView) findViewById(R.id.notes);
         notesView.setText(home.getNotes());
 
-//        ImageView imageView = (ImageView) findViewById(R.id.home_image);
-//        Picasso.with(this)
-//                .load(Uri.parse(house.getImage()))
-//                .resize(imageView.getWidth(), imageView.getHeight())
-//                .centerCrop()
-//                .into(imageView);
+        ImageView imageView = (ImageView) findViewById(R.id.home_image);
+        if (home.getImage() == null) {
+            Picasso.with(this)
+                    .load(R.drawable.sample_house)
+                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            House house = HouseStorage.getHouse(houseId);
+            Picasso.with(this)
+                    .load(Uri.parse(house.getImage()))
+                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .centerCrop()
+                    .into(imageView);
+        }
     }
 
     @Override

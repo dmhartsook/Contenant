@@ -82,7 +82,7 @@ public class AddHomeActivity extends AppCompatActivity{
         }
         else {
             house = HouseStorage.getHouse(houseId);
-            initializeFields(house);
+//            initializeFields(house);
         }
 
         setTitleFonts();
@@ -273,10 +273,8 @@ public class AddHomeActivity extends AppCompatActivity{
         if (resultCode == Activity.RESULT_OK) {
             ImageView imageView = (ImageView) findViewById(R.id.home_image);
             if (requestCode == SELECT_FILE) {
-//
-//                String tester = data.getData().toString()
-                house.setImage(data.getData().toString());
 
+                house.setImage(data.getData().toString());
                 Picasso.with(this)
                         .load(Uri.parse(house.getImage()))
                         .resize(imageView.getWidth(), imageView.getHeight())
@@ -333,14 +331,20 @@ public class AddHomeActivity extends AppCompatActivity{
         String notes = home.getNotes();
         notesView.setText(notes);
 
-//        ImageView imageView = (ImageView) findViewById(R.id.home_image);
-//        Log.d("tester", "width = " + imageView.getWidth());
-//        Log.d("tester", "height = " + imageView.getHeight());
-//        Picasso.with(this)
-//                .load(Uri.parse(house.getImage()))
-//                .resize(imageView.getWidth(), imageView.getHeight())
-//                .centerCrop()
-//                .into(imageView);
+        ImageView imageView = (ImageView) findViewById(R.id.home_image);
+        if (home.getImage() == null) {
+            Picasso.with(this)
+                    .load(R.drawable.sample_house)
+                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .centerCrop()
+                    .into(imageView);
+        } else {
+            Picasso.with(this)
+                    .load(Uri.parse(house.getImage()))
+                    .resize(imageView.getWidth(), imageView.getHeight())
+                    .centerCrop()
+                    .into(imageView);
+        }
     }
 
     @Override
