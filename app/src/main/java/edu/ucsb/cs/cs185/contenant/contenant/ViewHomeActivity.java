@@ -19,6 +19,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
  */
 public class ViewHomeActivity extends AppCompatActivity {
     private House house;
+    private long houseId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,13 +28,14 @@ public class ViewHomeActivity extends AppCompatActivity {
 
         house = (House) getIntent().getSerializableExtra(Constants.HOME);
         if (house == null) {
-            long houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
+            houseId = getIntent().getLongExtra(Constants.HOME_ID, -1);
             if (houseId == -1) {
                 Log.e("View Home Activity", "No house passed!");
             }
             house = HouseStorage.getHouse(houseId);
         }
         if (house != null) {
+            houseId = house.getId();
             initializeFields(house);
         }
 
@@ -60,6 +62,12 @@ public class ViewHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        initializeFields(HouseStorage.getHouse(houseId));
+        super.onResume();
     }
 
     /* Sets all the TextView fields with the values passed in the house. */
