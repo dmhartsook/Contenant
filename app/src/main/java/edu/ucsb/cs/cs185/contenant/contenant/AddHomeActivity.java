@@ -332,10 +332,14 @@ public class AddHomeActivity extends AppCompatActivity{
 
         if (id == R.id.save) {
             saveHouse();
-            Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
-            intent.putExtra(Constants.HOME_ID, house.getId());
-            this.finish();
-            startActivity(intent);
+            if (getIntent().getBooleanExtra(Constants.OPEN_VIEW_ON_SAVE, false)) {
+                Intent intent = new Intent(AddHomeActivity.this, ViewHomeActivity.class);
+                intent.putExtra(Constants.HOME_ID, house.getId());
+                finish();
+                startActivity(intent);
+            } else {
+                finish();
+            }
         }
 
         return super.onOptionsItemSelected(item);
