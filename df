@@ -1,0 +1,85 @@
+[1mdiff --git a/.idea/gradle.xml b/.idea/gradle.xml[m
+[1mindex 508b3d9..58992cc 100644[m
+[1m--- a/.idea/gradle.xml[m
+[1m+++ b/.idea/gradle.xml[m
+[36m@@ -3,8 +3,9 @@[m
+   <component name="GradleSettings">[m
+     <option name="linkedExternalProjectsSettings">[m
+       <GradleProjectSettings>[m
+[31m-        <option name="distributionType" value="DEFAULT_WRAPPED" />[m
+[32m+[m[32m        <option name="distributionType" value="LOCAL" />[m
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />[m
+[32m+[m[32m        <option name="gradleHome" value="$APPLICATION_HOME_DIR$/gradle/gradle-2.10" />[m
+         <option name="modules">[m
+           <set>[m
+             <option value="$PROJECT_DIR$" />[m
+[1mdiff --git a/.idea/misc.xml b/.idea/misc.xml[m
+[1mindex de428ae..edee1f1 100644[m
+[1m--- a/.idea/misc.xml[m
+[1m+++ b/.idea/misc.xml[m
+[36m@@ -1,28 +1,20 @@[m
+ <?xml version="1.0" encoding="UTF-8"?>[m
+ <project version="4">[m
+[31m-  <component name="NullableNotNullManager">[m
+[31m-    <option name="myDefaultNullable" value="android.support.annotation.Nullable" />[m
+[31m-    <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />[m
+[31m-    <option name="myNullables">[m
+[31m-      <value>[m
+[31m-        <list size="4">[m
+[31m-          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />[m
+[31m-          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />[m
+[31m-          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.Nullable" />[m
+[31m-          <item index="3" class="java.lang.String" itemvalue="android.support.annotation.Nullable" />[m
+[31m-        </list>[m
+[31m-      </value>[m
+[31m-    </option>[m
+[31m-    <option name="myNotNulls">[m
+[31m-      <value>[m
+[31m-        <list size="4">[m
+[31m-          <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />[m
+[31m-          <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />[m
+[31m-          <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />[m
+[31m-          <item index="3" class="java.lang.String" itemvalue="android.support.annotation.NonNull" />[m
+[31m-        </list>[m
+[31m-      </value>[m
+[31m-    </option>[m
+[32m+[m[32m  <component name="ProjectInspectionProfilesVisibleTreeState">[m
+[32m+[m[32m    <entry key="Project Default">[m
+[32m+[m[32m      <profile-state>[m
+[32m+[m[32m        <expanded-state>[m
+[32m+[m[32m          <State>[m
+[32m+[m[32m            <id />[m
+[32m+[m[32m          </State>[m
+[32m+[m[32m        </expanded-state>[m
+[32m+[m[32m        <selected-state>[m
+[32m+[m[32m          <State>[m
+[32m+[m[32m            <id>Android</id>[m
+[32m+[m[32m          </State>[m
+[32m+[m[32m        </selected-state>[m
+[32m+[m[32m      </profile-state>[m
+[32m+[m[32m    </entry>[m
+   </component>[m
+   <component name="ProjectLevelVcsManager" settingsEditedManually="false">[m
+     <OptionsSetting value="true" id="Add" />[m
+[36m@@ -34,7 +26,7 @@[m
+     <ConfirmationsSetting value="0" id="Add" />[m
+     <ConfirmationsSetting value="0" id="Remove" />[m
+   </component>[m
+[31m-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">[m
+[32m+[m[32m  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">[m
+     <output url="file://$PROJECT_DIR$/build/classes" />[m
+   </component>[m
+   <component name="ProjectType">[m
+[1mdiff --git a/.idea/vcs.xml b/.idea/vcs.xml[m
+[1mindex 94a25f7..35eb1dd 100644[m
+[1m--- a/.idea/vcs.xml[m
+[1m+++ b/.idea/vcs.xml[m
+[36m@@ -1,6 +1,6 @@[m
+ <?xml version="1.0" encoding="UTF-8"?>[m
+ <project version="4">[m
+   <component name="VcsDirectoryMappings">[m
+[31m-    <mapping directory="$PROJECT_DIR$" vcs="Git" />[m
+[32m+[m[32m    <mapping directory="" vcs="Git" />[m
+   </component>[m
+ </project>[m
+\ No newline at end of file[m
